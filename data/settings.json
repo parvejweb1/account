@@ -1,0 +1,69 @@
+{
+  "companyName": "IMMNSE",
+  "services": [
+    "SMS",
+    "RCS",
+    "WhatsApp",
+    "Virtual WhatsApp",
+    "OBD",
+    "IVR",
+    "SMPP"
+  ],
+  "accountManagers": [
+    "Feroz",
+    "Madhu",
+    "Ayesha",
+    "Wasim Sir"
+  ],
+  "sources": [
+    "WhatsApp Message",
+    "Email Approval",
+    "Client Portal",
+    "Verbal / Call"
+  ],
+  "roles": {
+    "admin": {
+      "label": "Administrator",
+      "pin": "admin123"
+    },
+    "accounts": {
+      "label": "Accounts & Billing",
+      "pin": "acc123"
+    },
+    "support": {
+      "label": "Support & Recharge Desk",
+      "pin": "sup123"
+    }
+  },
+  "users": [
+    {
+      "id": "usr_admin",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Super Admin",
+      "department": "Management & Operations"
+    },
+    {
+      "id": "usr_billing",
+      "username": "billing",
+      "password": "billing@123",
+      "role": "accounts",
+      "name": "Accounts & Billing Desk",
+      "department": "Billing Department"
+    },
+    {
+      "id": "usr_support",
+      "username": "support",
+      "password": "support@123",
+      "role": "support",
+      "name": "Support Recharge Desk",
+      "department": "Client Support Team"
+    }
+  ],
+  "companies": [
+    "Immense Air",
+    "Immense Smart Solution",
+    "Zion"
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "IMM-1004",
+    "username": "CEO_Rules",
+    "clientName": "Haji Abdul Rehman Haji Soomar & Co",
+    "service": "Virtual WhatsApp",
+    "rechargeCount": 100000,
+    "ratePerUnit": 0.14,
+    "totalAmount": 16520,
+    "accountManager": "Feroz",
+    "source": "WhatsApp Message",
+    "remarks": "Payment Pending",
+    "submittedBy": "support",
+    "screenshotUrl": "/uploads/1793019982943_59ad40_Screenshot_2026-10-26_183609.jpg",
+    "screenshotName": "Screenshot 2026-10-26 183609.png",
+    "billingStatus": "Billing Raised",
+    "invoiceNumber": "IA/P010/025/26-27",
+    "billingRemarks": "Proforma Invoice Dispatched",
+    "createdAt": "2026-10-26T13:06:22.945Z",
+    "updatedAt": "2026-10-27T12:14:39.636Z",
+    "billedAt": "2026-10-27T12:14:39.636Z",
+    "invoiceType": "Tax Invoice",
+    "billingCompany": "Immense Air",
+    "gstEnabled": true,
+    "gstRate": 18,
+    "gstAmount": 2520,
+    "servicesList": [
+      {
+        "service": "Virtual WhatsApp",
+        "count": 100000,
+        "rate": 0.14,
+        "amount": 14000
+      }
+    ],
+    "servicesDetail": "Virtual WhatsApp: 1,00,000 @ ₹0.14 (= ₹14,000)",
+    "baseAmount": 14000
+  }
+]

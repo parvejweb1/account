@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Immense Air Pvt. Ltd. — Recharge &amp; Billing Portal</title>
+  <link rel="icon" href="logo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=6.3" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       SEPARATE ACCOUNT LOGIN SCREEN (MANDATORY AUTHENTICATION)
+       ===================================================================== -->
+  <div class="login-gate" id="loginGate">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-mark-wrap brand-mark-wrap--lg">
+          <svg class="brand-mark" viewBox="0 0 44 44" role="img" aria-hidden="true">
+            <path d="M8 38V19.5C8 10.94 13.37 4.5 22 4.5C30.63 4.5 36 10.94 36 19.5V38H26.4V24.6C26.4 22.5 25.1 21.4 23.1 21.1H20.9C18.9 21.4 17.6 22.5 17.6 24.6V38H8Z" fill="#0D1B33" />
+            <circle cx="22" cy="14.5" r="6.2" fill="#FFFFFF" />
+            <circle cx="22" cy="14.5" r="4.3" fill="#FF6418" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">IMMENSE <span class="brand-name__air">AIR</span></div>
+          <div class="brand-sub">PVT LTD · STAFF LOGIN PORTAL</div>
+        </div>
+      </div>
+
+      <h2>Department Sign In</h2>
+      <p class="login-subtitle">Enter your dedicated department Username &amp; Password to access your workspace.</p>
+
+      <form id="loginForm" class="login-form" autocomplete="off">
+        <div class="form-group">
+          <label class="form-label" for="loginUsernameInput">Account Username <span class="req">*</span></label>
+          <input type="text" id="loginUsernameInput" class="form-input" placeholder="Enter username (admin / billing / support)" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPasswordInput">Account Password <span class="req">*</span></label>
+          <div style="position:relative;">
+            <input type="password" id="loginPasswordInput" class="form-input" placeholder="Enter password" required style="padding-right:42px;" />
+            <button type="button" id="toggleLoginPasswordBtn" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-muted);padding:4px;display:flex;align-items:center;justify-content:center;" title="Show/Hide Password">
+              <svg id="eyeIconShow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--accent btn--block btn--lg" id="loginSubmitBtn">
+          <span>Sign In to Portal</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       APP SHELL: LEFT SIDEBAR + RIGHT DETAILS WORKSPACE
+       ===================================================================== -->
+  <div id="portalApp" class="app-shell hidden">
+
+    <!-- Mobile Drawer Backdrop -->
+    <div class="sidebar-backdrop hidden" id="sidebarBackdrop"></div>
+
+    <!-- LEFT SIDEBAR NAVIGATION (DRAWER ON MOBILE, FIXED SIDEBAR ON DESKTOP) -->
+    <aside class="sidebar" id="portalSidebar">
+      <!-- Brand Header -->
+      <div class="sidebar__brand">
+        <div class="brand-mark-wrap">
+          <svg class="brand-mark" viewBox="0 0 44 44" role="img" aria-hidden="true">
+            <path d="M8 38V19.5C8 10.94 13.37 4.5 22 4.5C30.63 4.5 36 10.94 36 19.5V38H26.4V24.6C26.4 22.5 25.1 21.4 23.1 21.1H20.9C18.9 21.4 17.6 22.5 17.6 24.6V38H8Z" fill="#0D1B33" />
+            <circle cx="22" cy="14.5" r="6.2" fill="#FFFFFF" />
+            <circle cx="22" cy="14.5" r="4.3" fill="#FF6418" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name brand-name--light">IMMENSE <span class="brand-name__air">AIR</span></div>
+          <div class="brand-sub brand-sub--light" id="headerRoleSub">PVT LTD · BILLING OPS</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-left:auto;">
+          <button type="button" class="drawer-top-logout-btn" id="drawerQuickLogoutBtn" title="Logout Account">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Logout</span>
+          </button>
+          <button type="button" class="sidebar-mobile-close" id="sidebarCloseBtn" aria-label="Close menu">✕</button>
+        </div>
+      </div>
+
+      <!-- Logged-in Account Box -->
+      <div class="sidebar__user">
+        <span class="role-dot" id="loggedUserDot"></span>
+        <div class="sidebar__user-info">
+          <div class="sidebar__user-name" id="loggedUserName">Super Admin</div>
+          <div class="sidebar__user-dept" id="loggedUserDept">Account: admin</div>
+        </div>
+      </div>
+
+      <!-- Left Navigation Menu Options -->
+      <div class="sidebar__section-label">WORKSPACE MENU</div>
+      <nav class="sidebar__nav" id="sidebarNav">
+        <!-- Dashboard Option (Admin) -->
+        <button type="button" class="side-nav-btn active" data-nav="dashboard" id="navBtnDashboard">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+
+        <!-- Option 1: Billing Queue -->
+        <button type="button" class="side-nav-btn" data-nav="billing-queue" id="navBtnBillingQueue">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span id="navBtnBillingLabel">1. Billing Queue</span>
+          <span class="side-badge tnum" id="opt2PendingBadge">0</span>
+        </button>
+
+        <!-- Option 2: Add Recharge -->
+        <button type="button" class="side-nav-btn" data-nav="add-recharge" id="navBtnAddRecharge">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span id="navBtnAddRechargeLabel">2. Add Recharge</span>
+        </button>
+
+        <!-- Option 3: Recharge & Billing History -->
+        <button type="button" class="side-nav-btn" data-nav="history-ledger" id="navBtnHistory">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span id="navBtnHistoryLabel">3. Reports &amp; History</span>
+          <span class="side-badge side-badge--subtle tnum" id="opt3HistoryBadge">0</span>
+        </button>
+
+        <!-- Option 4: Client List & Sales / Account Managers -->
+        <button type="button" class="side-nav-btn" data-nav="sales-managers" id="navBtnSalesManagers">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span id="navBtnSalesLabel">4. Client List</span>
+          <span class="side-badge side-badge--subtle tnum" id="opt4ManagersBadge" title="Total Clients Mapped">0</span>
+        </button>
+
+        <!-- Option: Follow-Up Desk (Admin & Billing) -->
+        <button type="button" class="side-nav-btn hidden" data-nav="follow-up-desk" id="navBtnFollowUp">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span id="navBtnFollowUpLabel">Follow-Up Desk</span>
+          <span class="side-badge side-badge--subtle tnum" id="optFollowUpBadge">0</span>
+        </button>
+
+        <!-- Option 5: External Campaign -->
+        <button type="button" class="side-nav-btn" data-nav="external-campaign" id="navBtnCampaign">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span id="navBtnCampaignLabel">5. External Campaigns</span>
+          <span class="side-badge side-badge--subtle tnum" id="campaignBadge">0</span>
+        </button>
+
+        <!-- Option 6: Account History -->
+        <button type="button" class="side-nav-btn" data-nav="accounts-report" id="navBtnReport">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10h-10z"/><path d="M12 12L2.5 7.5"/></svg>
+          <span id="navBtnReportLabel">6. Account History</span>
+        </button>
+
+        <!-- Option: Error Code Hub (Telecom & DLT) -->
+        <button type="button" class="side-nav-btn" data-nav="error-hub" id="navBtnErrorCode">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="navBtnErrorCodeLabel">Error Code Hub</span>
+          <span class="side-badge tnum" id="optErrorCodeBadge"></span>
+        </button>
+      </nav>
+
+      <!-- Admin Settings & Bottom Actions -->
+      <div class="sidebar__footer">
+        <button type="button" class="side-footer-btn hidden" id="adminSettingsBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>🏢 Settings &amp; Companies</span>
+        </button>
+
+        <a href="/api/export/csv" class="side-footer-btn" id="headerExportBtn" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Excel (CSV)</span>
+        </a>
+
+        <button type="button" class="side-footer-btn side-footer-btn--logout" id="logoutBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Logout Account</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT SIDE MAIN WORKSPACE (SHOWS SELECTED OPTION DETAILS) -->
+    <div class="workspace-right">
+
+      <!-- MOBILE TOP HEADER (VISIBLE ONLY ON PHONES / SMALL SCREENS) -->
+      <header class="mobile-header-bar" id="mobileHeaderBar">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span style="font-weight:700;font-size:12px;">Menu</span>
+        </button>
+
+        <div class="mobile-header-brand">
+          <div class="brand-name brand-name--sm">IMMENSE <span class="brand-name__air">AIR</span></div>
+          <span class="mobile-active-view-name" id="mobileActiveViewTitle">Dashboard</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button type="button" class="mobile-header-logout-btn" id="mobileHeaderLogoutBtn" title="Logout Account">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Desktop Top Bar inside Right Content -->
+      <header class="workspace-topbar">
+        <div>
+          <span class="role-pill-badge" id="activeRoleBadge">ADMIN CONSOLE</span>
+          <span class="workspace-topbar__desc" id="activeRoleDesc"></span>
+        </div>
+        <div class="workspace-topbar__actions">
+          <button type="button" class="btn btn--outline btn--sm hidden" id="topbarManageCompaniesBtn" onclick="openAdminSettingsModal()" title="Manage Billing Companies">
+            <span>🏢 Manage Companies</span>
+          </button>
+          <button type="button" class="btn btn--ghost btn--sm" id="refreshBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Data</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="workspace-body">
+
+        <!-- ===============================================================
+             GLOBAL DATE FILTER BAR (SHOWS ACROSS ALL DASHBOARDS & TABLES)
+             =============================================================== -->
+        <div class="date-filter-bar" id="globalDateFilterBar">
+          <div class="date-filter-bar__left">
+            <span class="date-filter-bar__label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>DATE FILTER:</span>
+            </span>
+
+            <div class="date-quick-pills" id="dateQuickPills">
+              <button type="button" class="date-pill active" data-date-mode="all">All Dates</button>
+              <button type="button" class="date-pill" data-date-mode="today">Today</button>
+              <button type="button" class="date-pill" data-date-mode="yesterday">Yesterday</button>
+              <button type="button" class="date-pill" data-date-mode="custom">Calendar Select</button>
+            </div>
+
+            <div class="date-calendar-inputs hidden" id="dateCalendarInputs">
+              <input type="date" id="dateFilterFrom" class="form-input form-input--sm date-input" title="Select Date / From Date" />
+              <span class="date-sep">to</span>
+              <input type="date" id="dateFilterTo" class="form-input form-input--sm date-input" title="To Date (Optional)" />
+              <button type="button" class="btn btn--ghost btn--sm hidden" id="clearDateFilterBtn" style="padding:3px 8px;font-size:11px;">Reset</button>
+            </div>
+          </div>
+
+          <div class="date-filter-bar__right">
+            <span class="mono-hint tnum" id="activeDateFilterSummary">Showing: All Dates</span>
+          </div>
+        </div>
+
+        <!-- ===============================================================
+             VIEW 0: DASHBOARD OVERVIEW (SHOWN FIRST FOR ADMIN)
+             =============================================================== -->
+        <section id="dashboardPanel" class="view-section">
+          <div class="section-title-bar">
+            <div>
+              <h2>Admin Dashboard</h2>
+              <p>Live overview of recharge submissions, billing queue, and invoiced status.</p>
+            </div>
+          </div>
+
+          <!-- 4 Metric KPI Strip -->
+          <div class="ledger-strip">
+            <div class="ledger-cell ledger-cell--total" id="kpiCardTotal" role="button" tabindex="0">
+              <div class="ledger-cell__top">
+                <span class="mono-label">1. TOTAL RECHARGES</span>
+                <button type="button" class="kpi-eye-btn" id="eyeBtnTotal" onclick="event.stopPropagation(); openChannelBreakdownModal('all')" title="View Channel Breakdown (SMS, RCS, WhatsApp)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="ledger-cell__val tnum" id="statTotalCount">0</div>
+              <div class="ledger-cell__bottom">
+                <div class="ledger-cell__meta tnum" id="statTotalVolumeSub">Total Value: ₹0</div>
+              </div>
+            </div>
+
+            <div class="ledger-cell ledger-cell--raised" id="kpiCardRaised" role="button" tabindex="0">
+              <div class="ledger-cell__top">
+                <span class="mono-label">2. BILLING RAISED</span>
+                <button type="button" class="kpi-eye-btn" id="eyeBtnRaised" onclick="event.stopPropagation(); openChannelBreakdownModal('raised')" title="View Billed Channel Breakdown (SMS, RCS, WhatsApp)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="ledger-cell__val tnum" id="statRaisedCount">0</div>
+              <div class="ledger-cell__bottom">
+                <div class="ledger-cell__meta tnum" id="statRaisedAmount">₹0 invoiced</div>
+              </div>
+            </div>
+
+            <div class="ledger-cell ledger-cell--pending" id="kpiCardPending" role="button" tabindex="0">
+              <div class="ledger-cell__top">
+                <span class="mono-label">3. OUTSTANDING AMT</span>
+                <button type="button" class="kpi-eye-btn" id="eyeBtnPending" onclick="event.stopPropagation(); openChannelBreakdownModal('pending')" title="View Outstanding Channel Breakdown (SMS, RCS, WhatsApp)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="ledger-cell__val tnum" id="statPendingAmountBig" style="color:var(--orange);">₹0</div>
+              <div class="ledger-cell__bottom">
+                <div class="ledger-cell__meta tnum" id="statPendingSub">0 recharges pending</div>
+              </div>
+            </div>
+
+            <div class="ledger-cell ledger-cell--payment" id="kpiCardPayment" role="button" tabindex="0">
+              <div class="ledger-cell__top">
+                <span class="mono-label">4. PAYMENT RECEIVED AMT</span>
+                <button type="button" class="kpi-eye-btn" id="eyeBtnPayment" onclick="event.stopPropagation(); openChannelBreakdownModal('payment')" title="View Payment & Channel Breakdown (SMS, RCS, WhatsApp)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="ledger-cell__val tnum" id="statPaymentReceivedVal" style="color:#059669;">₹0</div>
+              <div class="ledger-cell__bottom">
+                <div class="ledger-cell__meta tnum" id="statPaymentReceivedSub">0 collections received</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Access: Client List (Account Manager Wise) Banner -->
+          <div class="dash-client-quick-banner" style="margin-top:14px;background:linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);border:1px solid #bfdbfe;border-radius:10px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:8px;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(2,132,199,0.25);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;color:var(--navy);font-size:14.5px;display:flex;align-items:center;gap:8px;">
+                  <span>Client List (Account Manager Wise)</span>
+                  <span class="mono-badge" style="background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;padding:2px 7px;" id="dashClientCountBadge">0 Clients Mapped</span>
+                </div>
+                <div style="font-size:12px;color:var(--ink-secondary);">Dekhein kaun sa client kis Sales / Account Manager ke under mapped hai aur unka active status</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn--navy btn--sm" id="dashGoToClientsBtn" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;">
+              <span>Open Client Directory</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+
+          <!-- Dashboard Recharge & Billing Raised Quick Table with Eye (👁) New Tab Button at the End -->
+          <div class="panel" style="margin-top:16px;">
+            <div class="panel__head panel__head--split">
+              <div>
+                <h2>Recent Recharges</h2>
+              </div>
+              <!-- Mobile Status Select Dropdown (Hidden on Desktop, Visible on Phone) -->
+              <div class="mobile-dash-status-select-wrap">
+                <select id="mobileDashTableSelect" class="form-select form-select--sm mobile-status-select">
+                  <option value="ALL">Status: All Records</option>
+                  <option value="Pending">Status: Pending</option>
+                  <option value="Billing Raised">Status: Billed</option>
+                  <option value="On Hold">Status: On Hold</option>
+                  <option value="Cancelled">Status: Cancelled</option>
+                </select>
+              </div>
+              <div class="status-pills dash-desktop-pills" id="dashTableTabGroup">
+                <button type="button" class="status-pill active" data-dashtab="ALL">All Records</button>
+                <button type="button" class="status-pill" data-dashtab="Pending">Pending</button>
+                <button type="button" class="status-pill" data-dashtab="Billing Raised">Billed</button>
+                <button type="button" class="status-pill" data-dashtab="On Hold">On Hold</button>
+                <button type="button" class="status-pill" data-dashtab="Cancelled">Cancelled</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th style="width:125px;">ID &amp; Date</th>
+                    <th style="min-width:170px;">Username &amp; Company</th>
+                    <th style="min-width:140px;">Recharge &amp; Channels</th>
+                    <th style="min-width:120px;">Sales / AM</th>
+                    <th style="min-width:130px;">Billing Status</th>
+                    <th style="min-width:100px;">Invoice No.</th>
+                    <th style="min-width:230px; text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardQuickTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+<!-- ===============================================================
+             VIEW 1: ADD RECHARGE & RECHARGE HISTORY (OPTION 1) - 2 CLEAN TABS
+             =============================================================== -->
+        <section id="formPanel" class="hidden" style="width:100%;">
+
+          <!-- TAB 1 CONTENT: ADD RECHARGE FORM (CLEAN, PROPORTIONED CARD) -->
+          <div id="rechargeTabForm" class="recharge-tab-pane">
+            <div class="form-two-col-layout">
+              <div class="form-clean-card">
+                <div class="panel__head" style="padding:18px 24px;border-bottom:1px solid var(--rule);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                    <div>
+                      <h2 style="font-size:20px;font-family:var(--font-display);color:var(--navy);margin:0;">Add Client Recharge Entry</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <form id="rechargeForm" class="entry-form" autocomplete="off" style="padding:22px 24px;">
+                  <div class="form-group">
+                    <div class="form-label-row">
+                      <label class="form-label">Approval Proof Screenshot</label>
+                    </div>
+                    <div class="upload-zone" id="uploadZone">
+                      <input type="file" id="screenshotInput" accept="image/*,.pdf" hidden />
+                      <div class="upload-zone__empty" id="uploadEmpty">
+                        <div class="upload-icon-circle">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <div class="upload-title">Tap to upload screenshot or press <kbd>Ctrl+V</kbd></div>
+                        <div class="upload-hint">Supports WhatsApp chat capture, Email screenshot, or PO image</div>
+                      </div>
+                      <div class="upload-zone__preview hidden" id="uploadPreviewContainer">
+                        <img id="uploadPreviewImg" src="" alt="Screenshot preview" />
+                        <div class="upload-preview-bar">
+                          <span class="mono-file" id="uploadFileName">screenshot.png</span>
+                          <button type="button" class="btn-remove-img" id="removeImgBtn">Replace Proof</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="username">Panel Username <span class="req">*</span></label>
+                    <input type="text" id="username" class="form-input" placeholder="e.g. apex_otp_route" required />
+                  </div>
+
+                  <!-- CPaaS Service Channel(s) (Supports Single or Multi-Channel in 1 Entry) -->
+                  <div class="form-group">
+                    <div class="form-label-row">
+                      <label class="form-label">CPaaS Service Channel(s) <span class="req">*</span></label>
+                    </div>
+                    <input type="hidden" id="selectedService" value="SMS" required />
+                    <div class="service-chips" id="serviceChips">
+                      <button type="button" class="service-chip active" data-service="SMS"><span class="chip-dot"></span>SMS</button>
+                      <button type="button" class="service-chip" data-service="RCS"><span class="chip-dot"></span>RCS</button>
+                      <button type="button" class="service-chip" data-service="WhatsApp"><span class="chip-dot"></span>WhatsApp</button>
+                      <button type="button" class="service-chip" data-service="Virtual WhatsApp"><span class="chip-dot"></span>Virtual WhatsApp</button>
+                      <button type="button" class="service-chip" data-service="OBD"><span class="chip-dot"></span>OBD Voice</button>
+                      <button type="button" class="service-chip" data-service="IVR"><span class="chip-dot"></span>IVR</button>
+                      <button type="button" class="service-chip" data-service="SMPP"><span class="chip-dot"></span>SMPP</button>
+                    </div>
+                  </div>
+
+                  <!-- Recharge Credits / Units Inputs (Single or Multi-Channel) -->
+                  <div class="form-group" id="channelUnitsWrapper">
+                    <div class="form-label-row">
+                      <label class="form-label" for="rechargeCount">Recharge Credits / Units <span class="req">*</span></label>
+                      <div class="preset-chips">
+                        <button type="button" class="preset-btn tnum" data-count="10000">10K</button>
+                        <button type="button" class="preset-btn tnum" data-count="50000">50K</button>
+                        <button type="button" class="preset-btn tnum" data-count="100000">1L</button>
+                        <button type="button" class="preset-btn tnum" data-count="500000">5L</button>
+                        <button type="button" class="preset-btn tnum" data-count="1000000">10L</button>
+                      </div>
+                    </div>
+                    <input type="number" id="rechargeCount" class="form-input form-input--lg tnum" placeholder="e.g. 250000" min="1" required />
+                  </div>
+
+<div class="form-row">
+                    <div class="form-group">
+                      <div class="form-label-row">
+                        <label class="form-label" for="accountManager">Sales / Account Manager <span class="req">*</span></label>
+                        <button type="button" class="link-btn" id="addManagerBtn">+ Add Manager</button>
+                      </div>
+                      <select id="accountManager" class="form-select" required></select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="source">Approval Medium</label>
+                      <select id="source" class="form-select">
+                        <option value="WhatsApp Message">WhatsApp Message</option>
+                        <option value="Email Approval">Email Approval</option>
+                        <option value="Client Portal">Client Portal</option>
+                        <option value="Verbal / Call">Verbal / Call</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="remarks">Support Dispatch Note</label>
+                    <textarea id="remarks" class="form-textarea" rows="2" placeholder="Mention GST billing instructions, PO reference, or urgency..."></textarea>
+                  </div>
+
+                  <!-- Notice: Accounts will update rate & amount -->
+                  <div style="font-size:12.5px;color:var(--ink-secondary);background:var(--paper-subtle);border:1px dashed var(--rule);padding:10px 14px;border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:16px;">💼</span>
+                    <span><strong>Note:</strong> Client company name, billing rate &amp; amount will be updated directly by the <strong>Accounts Team</strong> during invoice generation.</span>
+                  </div>
+
+                  <button type="submit" class="btn btn--accent btn--block btn--lg" id="submitBtn">
+                    <span>Submit Recharge Entry</span>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </button>
+                </form>
+              </div>
+
+              <!-- RIGHT SIDEBAR: SIMPLE 3-STEP PROCESS -->
+              <aside class="process-sidebar-card">
+                <div class="process-sidebar__header">
+                  <div class="process-sidebar__title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>Recharge Process</span>
+                  </div>
+                </div>
+
+                <div class="process-steps">
+                  <!-- Step 1 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--active">1</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">1. Log Recharge</div>
+                      <p class="process-step-desc">Enter client details &amp; upload proof</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 2 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--pending">2</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">2. Billing &amp; GST Review</div>
+                      <p class="process-step-desc">Accounts sets rate &amp; GST invoice</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 3 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--success">3</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">3. Ledger Synced</div>
+                      <p class="process-step-desc">Status updated &amp; bill raised</p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <!-- TAB 2 CONTENT: BULK EXCEL / CSV UPLOAD -->
+          <div id="rechargeTabBulk" class="recharge-tab-pane hidden">
+            <div class="form-clean-card">
+              <div class="panel__head" style="padding:18px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                <div>
+                  <h2 style="font-size:20px;font-family:var(--font-display);color:var(--navy);margin:0;">Bulk Client Recharge Upload</h2>
+                </div>
+                <div>
+                  <button type="button" class="btn btn--outline btn--sm" id="downloadBulkSampleBtn" style="display:flex;align-items:center;gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download Sample Template (.CSV)</span>
+                  </button>
+                </div>
+              </div>
+
+              <div style="padding:22px 24px;">
+                <!-- Upload File -->
+                <div class="form-group">
+                  <div class="form-label-row">
+                    <label class="form-label">Upload Excel or CSV File <span class="req">*</span></label>
+                    <span class="mono-hint">.XLSX, .XLS, .CSV</span>
+                  </div>
+                  <div class="upload-zone" id="bulkUploadZone" style="border:2px dashed var(--accent);background:var(--paper-subtle);cursor:pointer;padding:32px 20px;text-align:center;border-radius:10px;">
+                    <input type="file" id="bulkFileInput" accept=".csv,.xlsx,.xls,.txt" hidden />
+                    <div id="bulkUploadEmpty">
+                      <div class="upload-icon-circle" style="width:48px;height:48px;background:white;margin:0 auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                      </div>
+                      <div style="font-weight:700;color:var(--navy);font-size:15px;margin-bottom:4px;">Drag &amp; Drop Excel / CSV File or Click to Browse</div>
+                      <div style="font-size:12.5px;color:var(--ink-secondary);">Headers: <code>Username</code>, <code>Service</code>, <code>Units</code>, <code>AccountManager</code>, <code>ApprovalMedium</code>, <code>Remarks</code></div>
+                    </div>
+                    <div id="bulkUploadLoaded" class="hidden" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
+                      <span style="font-size:28px;">📊</span>
+                      <div style="text-align:left;">
+                        <div id="bulkLoadedFileName" style="font-weight:700;color:var(--navy);font-family:var(--font-mono);font-size:14px;">recharges.xlsx</div>
+                        <div id="bulkLoadedFileSize" style="font-size:12px;color:var(--ink-secondary);">14.2 KB</div>
+                      </div>
+                      <button type="button" class="btn btn--sm btn--danger-outline" id="removeBulkFileBtn" style="margin-left:14px;">Change File</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Common Screenshot / Proof (Optional) -->
+                <div class="form-group" style="margin-top:18px;">
+                  <div class="form-label-row">
+                    <label class="form-label">Approval Proof Screenshot <span class="text-muted">(Optional)</span></label>
+                  </div>
+                  <div class="upload-zone" id="bulkProofZone" style="padding:14px 18px;">
+                    <input type="file" id="bulkProofInput" accept="image/*,.pdf" hidden />
+                    <div id="bulkProofEmpty" style="display:flex;align-items:center;gap:12px;justify-content:center;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      <span style="font-size:13px;color:var(--ink-secondary);">Upload batch screenshot / PO proof or press <kbd>Ctrl+V</kbd></span>
+                    </div>
+                    <div id="bulkProofPreviewContainer" class="hidden" style="display:flex;align-items:center;justify-content:center;gap:12px;">
+                      <img id="bulkProofPreviewImg" src="" alt="Proof" style="height:44px;border-radius:4px;border:1px solid var(--rule);" />
+                      <span id="bulkProofFileName" class="mono-file" style="font-size:12px;">proof.png</span>
+                      <button type="button" class="btn-remove-img" id="removeBulkProofBtn">Replace</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Notice: Accounts rate -->
+                <div style="font-size:12.5px;color:var(--ink-secondary);background:var(--paper-subtle);border:1px dashed var(--rule);padding:10px 14px;border-radius:8px;margin-top:16px;display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:16px;">💼</span>
+                  <span><strong>Note:</strong> Bulk import hone ke baad har recharge entry ki <strong>Rate, Billable Amount &amp; Invoice</strong> Accounts department dwara update ki jayegi.</span>
+                </div>
+
+                <!-- Step 3: Parsed Data Table Preview -->
+                <div id="bulkPreviewSection" class="hidden" style="margin-top:22px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <h4 style="margin:0;font-size:15px;color:var(--navy);">File Preview (Ready to Import)</h4>
+                      <span class="badge badge--success" id="bulkValidCountBadge">0 Valid Entries</span>
+                    </div>
+                    <span style="font-size:12px;color:var(--ink-secondary);">Please verify the rows before final submission</span>
+                  </div>
+
+                  <div class="table-responsive" style="max-height:320px;overflow-y:auto;border:1px solid var(--rule);border-radius:6px;">
+                    <table class="history-table" style="margin:0;">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Username</th>
+                          <th>CPaaS Service</th>
+                          <th>Units / Count</th>
+                          <th>Account Manager</th>
+                          <th>Approval Medium</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody id="bulkPreviewTableBody"></tbody>
+                    </table>
+                  </div>
+
+                  <div style="margin-top:18px;display:flex;gap:12px;justify-content:flex-end;align-items:center;">
+                    <button type="button" class="btn btn--ghost" id="cancelBulkUploadBtn">Cancel / Reset</button>
+                    <button type="button" class="btn btn--accent btn--lg" id="submitBulkRechargesBtn" style="display:flex;align-items:center;gap:8px;">
+                      <span>Import &amp; Submit <strong id="bulkSubmitCount">0</strong> Recharges</span>
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3 CONTENT: RECHARGE SUBMISSION HISTORY TABLE (FULL-WIDTH) -->
+          <div id="rechargeTabHistory" class="recharge-tab-pane hidden">
+            <div class="panel">
+              <div class="panel__head panel__head--split" style="padding:18px 24px;">
+                <div>
+                  <h3 style="font-family:var(--font-display);font-size:18.5px;color:var(--navy);margin:0;">Recharge History</h3>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="mono-hint tnum" id="rechargeSectionCountBadge">0 records</span>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="history-table">
+                  <thead>
+                    <tr>
+                      <th>Recharge ID &amp; Date</th>
+                      <th>Username &amp; Company</th>
+                      <th>Service &amp; Units</th>
+                      <th>Amount (₹)</th>
+                      <th>Account Manager</th>
+                      <th>Billing Status</th>
+                      <th>Proof</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rechargeSectionHistoryBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<!-- ===============================================================
+             VIEW: EXTERNAL CAMPAIGN (OPTION 2 FOR SUPPORT) - 2 CLEAN TABS
+             =============================================================== -->
+        <section id="campaignPanel" class="hidden" style="width:100%;">
+
+          <!-- 2-TAB SEGMENTED CONTROLS -->
+          <div class="recharge-section-tabs-bar">
+            <div class="recharge-view-tabs" id="campaignViewTabs">
+              <button type="button" class="recharge-tab-btn active" data-ctab="form" id="tabBtnCampaignForm">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span>1. Add External Campaign</span>
+              </button>
+              <button type="button" class="recharge-tab-btn" data-ctab="history" id="tabBtnCampaignHistory">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>2. Campaign History</span>
+                <span class="tab-count-pill tnum" id="campaignHistoryTabBadge">0</span>
+              </button>
+            </div>
+            <span class="recharge-tab-hint" id="campaignTabHint">Log client external campaign for direct broadcast &amp; billing</span>
+          </div>
+
+          <!-- TAB 1 CONTENT: ADD EXTERNAL CAMPAIGN FORM -->
+          <div id="campaignTabForm" class="recharge-tab-pane">
+            <div class="form-two-col-layout">
+              <div class="form-clean-card">
+                <div class="panel__head" style="padding:18px 24px;border-bottom:1px solid var(--rule);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                    <div>
+                      <h2 style="font-size:20px;font-family:var(--font-display);color:var(--navy);margin:0;">Add External Campaign Entry</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <form id="campaignForm" class="entry-form" autocomplete="off" style="padding:22px 24px;">
+                  <!-- Client Base File or Approval Proof -->
+                  <div class="form-group">
+                    <div class="form-label-row">
+                      <label class="form-label">Campaign Base File / Approval Screenshot</label>
+                    </div>
+                    <div class="upload-zone" id="campaignUploadZone">
+                      <input type="file" id="campaignFileInput" accept="image/*,.pdf,.csv,.xlsx,.xls,.txt" hidden />
+                      <div class="upload-zone__empty" id="campaignUploadEmpty">
+                        <div class="upload-icon-circle">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <div class="upload-title">Upload campaign base file / screenshot or press <kbd>Ctrl+V</kbd></div>
+                        <div class="upload-hint">Supports WhatsApp approval chat, client number base (Excel/CSV) or PO proof</div>
+                      </div>
+                      <div class="upload-zone__preview hidden" id="campaignUploadPreviewContainer">
+                        <img id="campaignUploadPreviewImg" src="" alt="Proof preview" />
+                        <div class="upload-preview-bar">
+                          <span class="mono-file" id="campaignUploadFileName">proof.png</span>
+                          <button type="button" class="btn-remove-img" id="removeCampaignImgBtn">Replace File</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Username -->
+                  <div class="form-group">
+                    <label class="form-label" for="campaignUsername">Client Username <span class="req">*</span></label>
+                    <input type="text" id="campaignUsername" class="form-input" placeholder="e.g. apex_bulk_wa" required />
+                  </div>
+
+                  <!-- CPaaS Channel Selection -->
+                  <div class="form-group">
+                    <label class="form-label">CPaaS Service Channel <span class="req">*</span></label>
+                    <input type="hidden" id="campaignSelectedService" value="SMS" required />
+                    <div class="service-chips" id="campaignServiceChips">
+                      <button type="button" class="service-chip active" data-cservice="SMS"><span class="chip-dot"></span>SMS</button>
+                      <button type="button" class="service-chip" data-cservice="RCS"><span class="chip-dot"></span>RCS</button>
+                      <button type="button" class="service-chip" data-cservice="WhatsApp"><span class="chip-dot"></span>WhatsApp</button>
+                      <button type="button" class="service-chip" data-cservice="Virtual WhatsApp"><span class="chip-dot"></span>Virtual WhatsApp</button>
+                      <button type="button" class="service-chip" data-cservice="OBD"><span class="chip-dot"></span>OBD Voice</button>
+                      <button type="button" class="service-chip" data-cservice="IVR"><span class="chip-dot"></span>IVR</button>
+                      <button type="button" class="service-chip" data-cservice="SMPP"><span class="chip-dot"></span>SMPP</button>
+                    </div>
+                  </div>
+
+                  <!-- Campaign Units / Count -->
+                  <div class="form-group">
+                    <div class="form-label-row">
+                      <label class="form-label" for="campaignUnits">Campaign Units / Count <span class="req">*</span></label>
+                      <div class="preset-chips">
+                        <button type="button" class="preset-btn tnum" data-ccount="10000">10K</button>
+                        <button type="button" class="preset-btn tnum" data-ccount="50000">50K</button>
+                        <button type="button" class="preset-btn tnum" data-ccount="100000">1L</button>
+                        <button type="button" class="preset-btn tnum" data-ccount="500000">5L</button>
+                        <button type="button" class="preset-btn tnum" data-ccount="1000000">10L</button>
+                      </div>
+                    </div>
+                    <input type="number" id="campaignUnits" class="form-input form-input--lg tnum" placeholder="e.g. 50000" min="1" required />
+                  </div>
+
+                  <!-- Account Manager & Approval Medium -->
+          
+
+          <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="campaignAccountManager">Sales / Account Manager <span class="req">*</span></label>
+                      <select id="campaignAccountManager" class="form-select" required></select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="campaignSource">Approval Medium</label>
+                      <select id="campaignSource" class="form-select">
+                        <option value="WhatsApp Message">WhatsApp Message</option>
+                        <option value="Email Approval">Email Approval</option>
+                        <option value="Client Portal">Client Portal</option>
+                        <option value="Verbal / Call">Verbal / Call</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Remarks -->
+                  <div class="form-group">
+                    <label class="form-label" for="campaignRemarks">Campaign Remarks / Dispatch Note</label>
+                    <textarea id="campaignRemarks" class="form-textarea" rows="2" placeholder="Mention campaign template, batch info, or any special instructions..."></textarea>
+                  </div>
+
+                  <!-- Notice: Accounts will add rate -->
+                  <div style="font-size:12.5px;color:var(--ink-secondary);background:var(--paper-subtle);border:1px dashed var(--rule);padding:10px 14px;border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:16px;">💼</span>
+                    <span><strong>Note:</strong> Campaign rate &amp; billing amount will be added directly by the <strong>Accounts Team</strong> during invoice generation.</span>
+                  </div>
+
+                  <button type="submit" class="btn btn--accent btn--block btn--lg" id="campaignSubmitBtn">
+                    <span>Submit External Campaign</span>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </button>
+                </form>
+              </div>
+
+              <!-- RIGHT SIDEBAR: SIMPLE 3-STEP PROCESS -->
+              <aside class="process-sidebar-card">
+                <div class="process-sidebar__header">
+                  <div class="process-sidebar__title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    <span>Campaign Process</span>
+                  </div>
+                </div>
+
+                <div class="process-steps">
+                  <!-- Step 1 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--active">1</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">1. Log Campaign</div>
+                      <p class="process-step-desc">Upload base file or approval proof</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 2 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--pending">2</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">2. Gateway Dispatch</div>
+                      <p class="process-step-desc">Execution via operator routes</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 3 -->
+                  <div class="process-step-item">
+                    <div class="process-step-icon process-step-icon--success">3</div>
+                    <div class="process-step-content">
+                      <div class="process-step-title">3. Billing &amp; Invoice</div>
+                      <p class="process-step-desc">Accounts generates client invoice</p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <!-- TAB 2 CONTENT: CAMPAIGN HISTORY TABLE -->
+          <div id="campaignTabHistory" class="recharge-tab-pane hidden">
+            <div class="panel">
+              <div class="panel__head panel__head--split" style="padding:18px 24px;">
+                <div>
+                  <h3 style="font-family:var(--font-display);font-size:18.5px;color:var(--navy);margin:0;">Campaign Dispatch History</h3>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="mono-hint tnum" id="campaignSectionCountBadge">0 campaigns</span>
+                </div>
+              </div>
+
+              <!-- Search & Filter Controls -->
+              <div class="panel__head panel__head--sub" style="padding:12px 24px;">
+                <div class="filter-controls" style="width:100%;">
+                  <div class="search-wrap" style="flex:1;">
+                    <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="search" id="campaignSearchInput" class="form-input form-input--sm search-input" placeholder="Search campaign name, username, company, or ID..." />
+                  </div>
+                  <select id="campaignFilterService" class="form-select form-select--sm">
+                    <option value="ALL">All CPaaS Services</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Virtual WhatsApp">Virtual WhatsApp</option>
+                    <option value="SMS">SMS</option>
+                    <option value="RCS">RCS</option>
+                    <option value="OBD">OBD Voice</option>
+                    <option value="IVR">IVR</option>
+                    <option value="SMPP">SMPP</option>
+                  </select>
+                  <select id="campaignFilterStatus" class="form-select form-select--sm">
+                    <option value="ALL">All Campaign Status</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending Base">Pending Base</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="history-table">
+                  <thead>
+                    <tr>
+                      <th>Campaign ID &amp; Date</th>
+                      <th>Client Username</th>
+                      <th>Service Channel</th>
+                      <th>Campaign Units</th>
+                      <th>Rate &amp; Amount (₹)</th>
+                      <th>Account Manager</th>
+                      <th>Approval Medium</th>
+                      <th>Billing Status</th>
+                      <th>Proof / Base</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="campaignHistoryTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<!-- ===============================================================
+             VIEW 2: BILLING QUEUE (OPTION 2)
+             =============================================================== -->
+        <section class="panel panel--accounts hidden" id="accountsPanel">
+          <div class="panel__head panel__head--split">
+            <div>
+              <span id="ledgerKickerText" style="display:none;"></span>
+              <h2 id="ledgerHeadingText">Billing &amp; Verification Queue</h2>
+              <p id="ledgerSubText" style="display:none;"></p>
+            </div>
+            <div class="header-tools">
+              <a href="/api/export/csv" class="btn btn--navy btn--sm" id="ledgerExportBtn" download>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download Excel</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- LIVE BLINKING ALERT STRIP FOR NEW PENDING RECHARGES -->
+          <div id="billingLiveAlertBanner" class="billing-live-alert-strip hidden">
+            <div class="alert-strip-content">
+              <span class="blinking-alert-beacon"></span>
+              <span class="alert-strip-badge">⚡ NEW RECHARGE LOGGED</span>
+              <span class="alert-strip-text" id="billingLiveAlertText">Support has logged new recharges waiting for billing verification!</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="alert-strip-action btn--ack" id="alertStripAckAllBtn" onclick="acknowledgeAllPending()" style="background:#0284C7;border-color:#0369A1;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Acknowledge All</span>
+              </button>
+              <button type="button" class="alert-strip-action" id="alertStripFilterPendingBtn">
+                <span>Review Pending Only</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- LIVE BILLING FOLLOW-UP ALERT STRIP (SHOWN WHEN ADMIN HAS REQUESTED PAYMENT FOLLOW-UP) -->
+          <div id="billingFollowUpAlertBanner" class="billing-live-alert-strip hidden" style="background:linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);border-color:#fdba74;margin-bottom:12px;">
+            <div class="alert-strip-content">
+              <span style="font-size:18px;">🔔</span>
+              <span class="alert-strip-badge" style="background:#ea580c;color:#fff;">ADMIN PAYMENT FOLLOW-UP</span>
+              <span class="alert-strip-text" id="billingFollowUpAlertText" style="color:#9a3412;font-weight:700;">Admin has requested urgent payment follow-up for pending recharges!</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button type="button" class="alert-strip-action" id="btnFilterFollowUpOnly" style="background:#ea580c;border-color:#c2410c;color:#fff;font-weight:700;">
+                <span>Review Follow-Up Requests</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="filters-bar">
+            <div class="status-pills" id="statusFilterGroup">
+              <button type="button" class="status-pill active" data-status="ALL">
+                All Records <span class="pill-count tnum" id="countAll">0</span>
+              </button>
+              <button type="button" class="status-pill status-pill--pending" data-status="Pending">
+                Pending Billing Queue <span class="pill-count tnum" id="countPending">0</span>
+              </button>
+              <button type="button" class="status-pill status-pill--raised" data-status="Billing Raised">
+                Billing Invoiced History <span class="pill-count tnum" id="countRaised">0</span>
+              </button>
+              <button type="button" class="status-pill status-pill--hold" data-status="On Hold">
+                On Hold <span class="pill-count tnum" id="countHold">0</span>
+              </button>
+              <button type="button" class="status-pill status-pill--cancelled" data-status="Cancelled">
+                Cancelled <span class="pill-count tnum" id="countCancelled">0</span>
+              </button>
+              <button type="button" class="status-pill status-pill--followup" data-status="FollowUp" id="filterPillFollowUp" style="border-color:#f97316;color:#c2410c;">
+                🔔 Follow-Up Requests <span class="pill-count tnum" id="countFollowUp" style="background:#ea580c;color:#fff;">0</span>
+              </button>
+            </div>
+
+            <div class="filter-controls">
+              <!-- Mobile Status Select (Hidden on Desktop, Visible on Phone) -->
+              <div class="mobile-status-select-wrap">
+                <select id="mobileStatusSelect" class="form-select form-select--sm mobile-status-select">
+                  <option value="ALL">Status: All Records</option>
+                  <option value="Pending">Status: Pending / Bill Not Raised</option>
+                  <option value="Billing Raised">Status: Bill Raised / Invoiced</option>
+                  <option value="On Hold">Status: On Hold</option>
+                  <option value="Cancelled">Status: Cancelled</option>
+                  <option value="FollowUp">🔔 Status: Follow-Up Requests</option>
+                </select>
+              </div>
+
+              <div class="search-wrap">
+                <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" id="searchInput" class="form-input form-input--sm search-input" placeholder="Search username, company, ID, or invoice..." />
+              </div>
+              <select id="filterService" class="form-select form-select--sm">
+                <option value="ALL">All Channels (7)</option>
+                <option value="SMS">SMS</option>
+                <option value="RCS">RCS</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Virtual WhatsApp">Virtual WhatsApp</option>
+                <option value="OBD">OBD Voice</option>
+                <option value="IVR">IVR</option>
+                <option value="SMPP">SMPP</option>
+              </select>
+              <select id="filterManager" class="form-select form-select--sm">
+                <option value="ALL">All Account Managers</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="records-list" id="recordsList"></div>
+        </section>
+
+        <!-- ===============================================================
+             VIEW 3: RECHARGE & BILLING HISTORY TABLE (OPTION 3)
+             =============================================================== -->
+        <section class="panel hidden" id="historyPanel">
+          <div class="panel__head panel__head--split">
+            <div>
+              <div class="kicker-tag" style="display:none;"><span class="kicker-dot"></span><span></span></div>
+              <h2 id="historySectionHeading">Recharge &amp; Billing History</h2>
+              <p id="historySectionDesc" style="display:none;"></p>
+            </div>
+            <div class="header-tools">
+              <input type="search" id="historySearchInput" class="form-input form-input--sm" placeholder="Search history by username, ID, AM..." />
+              <a href="/api/export/csv" class="btn btn--navy btn--sm" id="historyExportBtn" download>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Full History (CSV)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- DEDICATED HISTORY TABS: 1. RECHARGE HISTORY | 2. BILLING HISTORY | 3. ALL -->
+          <div class="history-subtabs-bar">
+            <div class="status-pills" id="historySubTabsGroup">
+              <button type="button" class="status-pill active" data-htab="recharge">
+                ⚡ Recharge History
+              </button>
+              <button type="button" class="status-pill status-pill--raised" data-htab="billing">
+                🧾 Billing History
+              </button>
+              <button type="button" class="status-pill" data-htab="all">
+                📋 All Records
+              </button>
+            </div>
+            <span class="count-badge-subtle tnum" id="historyTabCountBadge">0 records</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="history-table">
+              <thead id="historyTableHead">
+                <tr>
+                  <th>Recharge ID &amp; Date</th>
+                  <th>Panel Username</th>
+                  <th>Company Name</th>
+                  <th>Service &amp; Units</th>
+                  <th>Billable Value</th>
+                  <th>Account Manager</th>
+                  <th>Billing Status</th>
+                  <th>Invoice No. &amp; Billed Date</th>
+                  <th>Proof</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+<!-- ===============================================================
+             VIEW: PAYMENT FOLLOW-UP DESK (BILLING & ADMIN)
+             =============================================================== -->
+        <section class="panel hidden" id="followUpPanel">
+          <div class="panel__head panel__head--split">
+            <div>
+              <span class="mono-badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;">COMMUNICATION &amp; RECOVERY DESK</span>
+              <h2>📞 Payment Follow-Up Management</h2>
+              <p>Admin instructions, Billing desk calls, committed payment dates, and supporting receipts</p>
+            </div>
+            <div class="header-tools" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn--outline btn--sm" id="exportFollowUpBtn" onclick="exportFollowUpData()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Follow-Ups</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Top Metric KPI Cards for Follow-Up -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:12px;padding:16px 20px;border-bottom:1px solid var(--rule);background:#ffffff;">
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:8px;border:1px solid var(--rule);">
+              <div style="font-size:11px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.04em;">TOTAL CASES</div>
+              <div style="font-size:22px;font-weight:800;color:var(--navy);margin-top:2px;" id="fuStatTotal">0</div>
+              <div style="font-size:11.5px;color:#64748b;">Active &amp; past follow-ups</div>
+            </div>
+            <div style="background:#fff7ed;padding:12px 16px;border-radius:8px;border:1px solid #fed7aa;">
+              <div style="font-size:11px;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:0.04em;">CALLS DUE TODAY</div>
+              <div style="font-size:22px;font-weight:800;color:#ea580c;margin-top:2px;" id="fuStatDueToday">0</div>
+              <div style="font-size:11.5px;color:#9a3412;">Scheduled for today / overdue</div>
+            </div>
+            <div style="background:#fef2f2;padding:12px 16px;border-radius:8px;border:1px solid #fecaca;">
+              <div style="font-size:11px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:0.04em;">AWAITING BILLING REPLY</div>
+              <div style="font-size:22px;font-weight:800;color:#b91c1c;margin-top:2px;" id="fuStatAwaiting">0</div>
+              <div style="font-size:11.5px;color:#991b1b;">Admin request pending</div>
+            </div>
+            <div style="background:#f0fdf4;padding:12px 16px;border-radius:8px;border:1px solid #bbf7d0;">
+              <div style="font-size:11px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:0.04em;">UPDATED WITH PROOF</div>
+              <div style="font-size:22px;font-weight:800;color:#15803d;margin-top:2px;" id="fuStatUpdated">0</div>
+              <div style="font-size:11.5px;color:#166534;">Proof &amp; note submitted</div>
+            </div>
+          </div>
+
+          <!-- Filter Toolbar: Search & Segmented Status Pills -->
+          <div style="background:#f8fafc;padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:240px;max-width:380px;">
+              <div class="search-input-wrap" style="width:100%;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="followUpSearchInput" class="form-input form-input--sm" placeholder="Search client, company, note, or AM..." />
+              </div>
+            </div>
+
+            <div class="status-pills" id="followUpFilterPills">
+              <button type="button" class="status-pill active" data-futab="ALL">All Follow-Ups</button>
+              <button type="button" class="status-pill" data-futab="DUE">⏰ Calls Due Today</button>
+              <button type="button" class="status-pill" data-futab="REQUESTED">🔔 Needs Billing Reply</button>
+              <button type="button" class="status-pill" data-futab="UPDATED">🟢 Updated with Proof</button>
+              <button type="button" class="status-pill" data-futab="RESOLVED">✓ Resolved / Closed</button>
+            </div>
+          </div>
+
+          <!-- Follow-Up Table / Cards List Container -->
+          <div style="padding:16px 20px;">
+            <div id="followUpListContainer" style="display:flex;flex-direction:column;gap:14px;"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             VIEW: TELECOM & DLT ERROR CODE INTELLIGENCE HUB (MERGED)
+             =============================================================== -->
+        <!-- =================================================================
+             TELECOM & DLT ERROR CODE INTELLIGENCE HUB (SUPPORT & OPS ENGINE)
+             ================================================================= -->
+        <section class="panel hidden error-hub-panel" id="errorCodePanel">
+          <!-- Premium Hero Header -->
+          <div class="error-hub-hero">
+            <div class="error-hub-hero__content">
+              <div class="error-hub-hero__tags">
+                <span class="hub-kicker-pill">
+                  <span class="hub-kicker-dot"></span>
+                  SUPPORT INTELLIGENCE SUITE
+                </span>
+                <span class="hub-verified-pill">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  1,076 Verified Error Codes
+                </span>
+              </div>
+              <h2 class="error-hub-hero__title">
+                <span class="error-hub-hero__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+                </span>
+                Telecom &amp; DLT Error Code Intelligence Hub
+              </h2>
+              <p class="error-hub-hero__desc">
+                Instant diagnostic engine for Jio, Airtel, Vi, SmartPing DLT rejection codes, SMPP protocol errors, and prescriptive resolution steps.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Modern Stat Cards with Icons -->
+          <div class="error-hub-stats">
+            <div class="error-stat-card">
+              <div class="error-stat-card__top">
+                <div class="error-stat-icon error-stat-icon--blue">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </div>
+                <span class="error-stat-chip">DLT &amp; SMPP</span>
+              </div>
+              <div class="error-stat-val tnum" id="errorStatTotal">1,076</div>
+              <div class="error-stat-lbl">Total Error Codes Indexed</div>
+            </div>
+
+            <div class="error-stat-card">
+              <div class="error-stat-card__top">
+                <div class="error-stat-icon error-stat-icon--purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/></svg>
+                </div>
+                <span class="error-stat-chip">Multi-Operator</span>
+              </div>
+              <div class="error-stat-val tnum" id="errorStatOperators">7</div>
+              <div class="error-stat-lbl">Operators &amp; Protocols</div>
+            </div>
+
+            <div class="error-stat-card">
+              <div class="error-stat-card__top">
+                <div class="error-stat-icon error-stat-icon--amber">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="error-stat-chip">In-Memory Engine</span>
+              </div>
+              <div class="error-stat-val tnum" id="errorStatSpeed">&lt;1ms</div>
+              <div class="error-stat-lbl">Search Latency</div>
+            </div>
+
+            <div class="error-stat-card">
+              <div class="error-stat-card__top">
+                <div class="error-stat-icon error-stat-icon--green">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <span class="error-stat-chip" style="background:rgba(16,185,129,0.12);color:#059669;">Verified</span>
+              </div>
+              <div class="error-stat-val tnum" style="color:#059669;">100%</div>
+              <div class="error-stat-lbl">Actionable Prescriptions</div>
+            </div>
+          </div>
+
+          <!-- Modern Search & Filter Box -->
+          <div class="error-search-box">
+            <div class="error-search-bar-row">
+              <div class="error-search-input-wrap">
+                <svg class="error-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="errorSearchInput" class="error-search-input" placeholder="Type error code (600, 622, 20A, 408), name (ENTITY_NOT_FOUND), keyword (DLT, whitelist, timeout)..." autocomplete="off" />
+                <span class="error-shortcut-badge" title="Press / anywhere to focus">/</span>
+                <button type="button" class="btn-clear-search" id="errorClearSearchBtn" style="display:none;" title="Clear search">✕</button>
+              </div>
+
+              <div class="error-target-filter-wrap">
+                <span class="error-target-label">Search In:</span>
+                <select id="errorTargetSelect" class="error-target-select">
+                  <option value="all">All Fields</option>
+                  <option value="code">Error Code Only</option>
+                  <option value="desc">Description Only</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Quick Search Suggestion Pills -->
+            <div class="error-quick-tags" id="errorQuickTags">
+              <span class="error-quick-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Frequent Codes:
+              </span>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('600')"><span class="qtag-code">600</span> Entity Not Found</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('622')"><span class="qtag-code">622</span> Header Blacklisted</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('20A')"><span class="qtag-code">20A</span> DLT Block</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('408')"><span class="qtag-code">408</span> Timeout</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('3')"><span class="qtag-code">Error 3</span> SMPP</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('TEMPLATE')">DLT Template</button>
+              <button type="button" class="error-quick-tag" onclick="quickSearchError('ESME')">ESME Error</button>
+            </div>
+          </div>
+
+          <!-- Operator Tabs Bar -->
+          <div class="error-tabs-bar">
+            <div class="error-operator-tabs" id="errorOperatorTabs">
+              <button type="button" class="error-op-tab active" data-op="All">
+                All Operators <span class="op-count-pill">1,076</span>
+              </button>
+              <button type="button" class="error-op-tab" data-op="Jio">
+                <span class="op-dot op-dot--jio"></span>Jio
+              </button>
+              <button type="button" class="error-op-tab" data-op="Airtel">
+                <span class="op-dot op-dot--airtel"></span>Airtel
+              </button>
+              <button type="button" class="error-op-tab" data-op="Vi">
+                <span class="op-dot op-dot--vi"></span>Vi (Vodafone)
+              </button>
+              <button type="button" class="error-op-tab" data-op="SmartPing">
+                <span class="op-dot op-dot--smartping"></span>SmartPing
+              </button>
+              <button type="button" class="error-op-tab" data-op="Telspil">
+                <span class="op-dot op-dot--telspil"></span>Telspil
+              </button>
+              <button type="button" class="error-op-tab" data-op="SMPP">
+                <span class="op-dot op-dot--smpp"></span>SMPP Protocol
+              </button>
+              <button type="button" class="error-op-tab" data-op="General">
+                General
+              </button>
+            </div>
+
+            <!-- Results Meta on the Right -->
+            <div class="error-results-meta">
+              <span>Showing <strong id="errorResultsCount" class="tnum">0</strong> error codes</span>
+              <span id="errorSearchDuration" class="error-speed-badge"></span>
+            </div>
+          </div>
+
+          <!-- Results Cards Grid -->
+          <div class="error-results-grid" id="errorResultsGrid"></div>
+
+          <!-- Empty State -->
+          <div id="errorEmptyState" class="hidden error-empty-state">
+            <div class="error-empty-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="error-empty-title">Koi Error Code Match Nahi Mila</div>
+            <div class="error-empty-desc">Kripya error code number (jaise 600, 622, 20A) ya telecom keyword daal kar search karein.</div>
+          </div>
+
+          <!-- Show More Button -->
+          <div id="errorLoadMoreContainer" style="display:none;justify-content:center;margin:24px 0 32px 0;">
+            <button type="button" class="btn btn--outline" id="errorLoadMoreBtn" style="min-width:200px;font-weight:600;">
+              Load More Error Codes ↓
+            </button>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             VIEW: ACCOUNTS & GST REPORT (FINANCIAL & PIE CHARTS)
+             =============================================================== -->
+        <section class="panel hidden" id="accountsReportPanel">
+          <div class="panel__head panel__head--split">
+            <div>
+              <h2 id="reportSectionHeading">Accounts &amp; Billing Financial Report</h2>
+              <p id="reportSectionDesc" style="display:none;"></p>
+            </div>
+            <div class="header-tools">
+              <button type="button" class="btn btn--ghost btn--sm" id="repPrintBtn" onclick="window.print()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>Print Report</span>
+              </button>
+              <button type="button" class="btn btn--navy btn--sm" id="repExportCsvBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Report (CSV)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- DEDICATED REPORT DATE & CRITERIA FILTER BAR -->
+          <div class="report-filters-bar">
+            <!-- Mobile Date Filter Dropdown (Hidden on Desktop, Visible on Phone) -->
+            <div class="mobile-rep-date-wrap">
+              <label for="mobileRepDateSelect" class="mobile-filter-lbl">📅 Date Period</label>
+              <select id="mobileRepDateSelect" class="form-select form-select--sm mobile-rep-date-select">
+                <option value="all">📅 Date: All Dates</option>
+                <option value="today">📅 Date: Today</option>
+                <option value="yesterday">📅 Date: Yesterday</option>
+                <option value="this_month">📅 Date: This Month</option>
+                <option value="custom">📅 Date: Custom Date Range ▾</option>
+              </select>
+            </div>
+
+            <div class="rep-filter-row">
+              <div class="rep-filter-group rep-desktop-pills">
+                <span class="rep-filter-label">📅 Date Period:</span>
+                <div class="date-pills" id="repDateQuickPills">
+                  <button type="button" class="date-pill active" data-repdate="all">All Dates</button>
+                  <button type="button" class="date-pill" data-repdate="today">Today</button>
+                  <button type="button" class="date-pill" data-repdate="yesterday">Yesterday</button>
+                  <button type="button" class="date-pill" data-repdate="this_month">This Month</button>
+                  <button type="button" class="date-pill" data-repdate="custom">Custom Date</button>
+                </div>
+              </div>
+
+              <div class="rep-date-inputs" id="repCustomDateInputs" style="display:none;">
+                <div class="date-field">
+                  <label for="repDateFrom">From</label>
+                  <input type="date" id="repDateFrom" class="form-input form-input--sm" />
+                </div>
+                <div class="date-field">
+                  <label for="repDateTo">To</label>
+                  <input type="date" id="repDateTo" class="form-input form-input--sm" />
+                </div>
+                <button type="button" class="btn btn--navy btn--sm" id="repApplyCustomDateBtn">Apply Date</button>
+              </div>
+            </div>
+
+            <div class="rep-filter-row rep-filter-row--sub">
+              <div class="rep-dropdowns-wrap">
+                <div class="rep-dropdown-item">
+                  <label for="repFilterEntity">Billing Entity:</label>
+                  <select id="repFilterEntity" class="form-select form-select--sm">
+                    <option value="ALL">All Companies</option>
+                    <option value="Immense Air">Immense Air Pvt Ltd</option>
+                    <option value="Immense Smart">Immense Smart</option>
+                    <option value="Zion">Zion</option>
+                  </select>
+                </div>
+
+                <div class="rep-dropdown-item">
+                  <label for="repFilterInvoiceType">Invoice Type:</label>
+                  <select id="repFilterInvoiceType" class="form-select form-select--sm">
+                    <option value="ALL">All Types (GST &amp; Non-GST)</option>
+                    <option value="Tax Invoice">Tax Invoice (GST)</option>
+                    <option value="Non GST">Non GST Billing</option>
+                    <option value="Proforma Invoice">Proforma Invoice (PI)</option>
+                  </select>
+                </div>
+
+                <div class="rep-dropdown-item">
+                  <label for="repFilterService">Service Channel:</label>
+                  <select id="repFilterService" class="form-select form-select--sm">
+                    <option value="ALL">All Channels</option>
+                    <option value="SMS">SMS</option>
+                    <option value="RCS">RCS</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Virtual WhatsApp">Virtual WhatsApp</option>
+                    <option value="OBD">OBD Voice</option>
+                    <option value="IVR">IVR</option>
+                    <option value="SMPP">SMPP</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rep-filter-actions">
+                <span class="mono-hint tnum" id="repActiveSummary">Filtered: All Dates · All Records</span>
+                <button type="button" class="link-btn link-btn--sm" id="repResetFiltersBtn">Reset Filters</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI METRIC CARDS -->
+          <!-- 5 ACCOUNT KPI METRIC CARDS (HERO COUNT FOCUSED) -->
+          <div class="report-kpi-grid">
+            <!-- Card 1: Total Recharge -->
+            <div class="rep-kpi-card rep-kpi-card--total rep-kpi-card--clickable" onclick="openKpiDetailsModal('TOTAL_RECHARGE')" title="Click to view all recharge entries">
+              <div class="rep-kpi-header">
+                <span class="rep-kpi-kicker">TOTAL RECHARGES</span>
+                <button type="button" class="kpi-eye-btn" onclick="event.stopPropagation(); openKpiDetailsModal('TOTAL_RECHARGE');" title="👁 View All Recharge Entries">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="rep-kpi-amount-row">
+                <div class="rep-kpi-count-hero tnum" id="repKpiTotalCount">0</div>
+                <span class="rep-kpi-amount-pill" id="repKpiTotalAmount">₹0</span>
+              </div>
+              <div class="rep-kpi-sub" title="Total recharges logged across all channels">Total recharges logged across channels</div>
+            </div>
+
+            <!-- Card 2: Total Billing Raised -->
+            <div class="rep-kpi-card rep-kpi-card--raised rep-kpi-card--clickable" onclick="openKpiDetailsModal('BILLING_RAISED')" title="Click to view billed records">
+              <div class="rep-kpi-header">
+                <span class="rep-kpi-kicker">BILLING RAISED</span>
+                <button type="button" class="kpi-eye-btn kpi-eye-btn--green" onclick="event.stopPropagation(); openKpiDetailsModal('BILLING_RAISED');" title="👁 View Billed Records">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="rep-kpi-amount-row">
+                <div class="rep-kpi-count-hero tnum" id="repKpiRaisedCount" style="color:var(--green);">0</div>
+                <span class="rep-kpi-amount-pill rep-kpi-amount-pill--green" id="repKpiRaisedAmount">₹0</span>
+              </div>
+              <div class="rep-kpi-sub" id="repKpiRaisedPct" title="100.0% of total volume invoiced">0% of total volume invoiced</div>
+            </div>
+
+            <!-- Card 3: Pending Bill -->
+            <div class="rep-kpi-card rep-kpi-card--outstanding rep-kpi-card--clickable" onclick="openKpiDetailsModal('PENDING_BILL')" title="Click to view pending/unbilled records">
+              <div class="rep-kpi-header">
+                <span class="rep-kpi-kicker">PENDING BILLS</span>
+                <button type="button" class="kpi-eye-btn kpi-eye-btn--orange" onclick="event.stopPropagation(); openKpiDetailsModal('PENDING_BILL');" title="👁 View Pending / Unbilled Records">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="rep-kpi-amount-row">
+                <div class="rep-kpi-count-hero tnum" id="repKpiPendingBillCount" style="color:var(--orange);">0</div>
+                <span class="rep-kpi-amount-pill rep-kpi-amount-pill--orange" id="repKpiPendingBillAmount">₹0</span>
+              </div>
+              <div class="rep-kpi-sub" id="repKpiPendingBillPct" title="Awaiting invoice generation">Awaiting invoice generation</div>
+            </div>
+
+            <!-- Card 4: Total Follow-Up -->
+            <div class="rep-kpi-card rep-kpi-card--followup rep-kpi-card--clickable" onclick="openKpiDetailsModal('TOTAL_FOLLOWUP')" title="Click to view all follow-up cases">
+              <div class="rep-kpi-header">
+                <span class="rep-kpi-kicker">TOTAL FOLLOW-UPS</span>
+                <button type="button" class="kpi-eye-btn kpi-eye-btn--blue" onclick="event.stopPropagation(); openKpiDetailsModal('TOTAL_FOLLOWUP');" title="👁 View All Follow-Up Cases">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="rep-kpi-amount-row">
+                <div class="rep-kpi-count-hero tnum" id="repKpiTotalFollowUpCount" style="color:#0284c7;">0</div>
+                <span class="rep-kpi-amount-pill rep-kpi-amount-pill--blue" id="repKpiTotalFollowUpAmount">₹0</span>
+              </div>
+              <div class="rep-kpi-sub" title="Total payment follow-up cases on portal">Total payment follow-up cases</div>
+            </div>
+
+            <!-- Card 5: Pending Follow-Up -->
+            <div class="rep-kpi-card rep-kpi-card--pending-followup rep-kpi-card--clickable" onclick="openKpiDetailsModal('PENDING_FOLLOWUP')" title="Click to view pending calls & overdue follow-ups">
+              <div class="rep-kpi-header">
+                <span class="rep-kpi-kicker">PENDING FOLLOW-UPS</span>
+                <button type="button" class="kpi-eye-btn kpi-eye-btn--red" onclick="event.stopPropagation(); openKpiDetailsModal('PENDING_FOLLOWUP');" title="👁 View Overdue / Pending Follow-Up Calls">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="rep-kpi-amount-row">
+                <div class="rep-kpi-count-hero tnum" id="repKpiPendingFollowUpCount" style="color:#ea580c;">0</div>
+                <span class="rep-kpi-amount-pill rep-kpi-amount-pill--red" id="repKpiPendingFollowUpAmount">₹0</span>
+              </div>
+              <div class="rep-kpi-sub" id="repKpiPendingFollowUpSub" title="Calls due / awaiting billing response">Calls due / awaiting billing response</div>
+            </div>
+          </div>
+
+          <!-- DEDICATED ACCOUNT PIE CHARTS (BILLING & FOLLOW-UP) -->
+          <div class="report-charts-grid">
+            <!-- PIE CHART 1: Billing Realization (Total Recharge vs Billing Raised vs Pending Bill) -->
+            <div class="chart-card">
+              <div class="chart-card__head">
+                <div>
+                  <span class="mono-badge" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">BILLING REALIZATION</span>
+                  <h3 class="chart-card__title">Billing Status: Raised vs Pending Bill (Pie Chart)</h3>
+                </div>
+                <span class="chart-card__badge" id="repFinBadge">Recharge &amp; Bill Breakdown</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="repChartFinancialCanvas"></canvas>
+              </div>
+              <div class="chart-footer-stats" id="repFinStatsRow"></div>
+            </div>
+
+            <!-- PIE CHART 2: Payment Follow-Up Status (Total Followup, Pending Followup, Updated/Resolved) -->
+            <div class="chart-card">
+              <div class="chart-card__head">
+                <div>
+                  <span class="mono-badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;">FOLLOW-UP DESK</span>
+                  <h3 class="chart-card__title">Payment Follow-Up: Pending vs Done / Resolved (Pie Chart)</h3>
+                </div>
+                <span class="chart-card__badge" id="repFollowUpBadge">Follow-Up Breakdown</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="repChartFollowUpCanvas"></canvas>
+              </div>
+              <div class="chart-footer-stats" id="repFollowUpStatsRow"></div>
+            </div>
+          </div>
+
+          <!-- SUMMARY AUDIT TABLE -->
+          <div class="report-table-card">
+            <div class="panel__head panel__head--split" style="padding:16px 20px;">
+              <div>
+                <span class="mono-badge">AUDIT STATEMENT</span>
+                <h3 style="font-family:var(--font-display);font-size:17px;color:var(--navy);margin:2px 0 0 0;">Billing &amp; Tax Audit Summary Breakdown</h3>
+              </div>
+              <span class="mono-hint tnum" id="repTableSummaryBadge">Detailed Breakdown</span>
+            </div>
+            <div class="table-responsive">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Billing Category / Invoice Type</th>
+                    <th>Records Count</th>
+                    <th>Credits / Units</th>
+                    <th>Total Value (₹)</th>
+                    <th>Share of Total (%)</th>
+                    <th>Financial Status</th>
+                  </tr>
+                </thead>
+                <tbody id="repSummaryTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+<!-- ===============================================================
+             VIEW 4: CLIENT LIST & SALES / ACCOUNT MANAGERS MAPPING DIRECTORY (OPTION 4)
+             =============================================================== -->
+        <section class="panel hidden" id="salesManagerPanel">
+          <div class="panel__head panel__head--split">
+            <div>
+              <span class="mono-badge">CLIENT &amp; ACCOUNT MANAGER DIRECTORY</span>
+              <h2>Client List (Account Manager Wise)</h2>
+              <p>Dekhein kaun sa client kis Sales / Account Manager ke under mapped hai aur unka live recharge &amp; billing status</p>
+            </div>
+            <div class="header-tools" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn--outline btn--sm" id="exportClientListBtn" style="display:inline-flex;align-items:center;gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Client List (Excel)</span>
+              </button>
+              <button type="button" class="btn btn--navy btn--sm" id="addAmFromSalesBtn">+ Add New Sales / AM</button>
+            </div>
+          </div>
+
+          <!-- Top Metric KPI Cards for Clients & Account Managers -->
+          <div class="client-kpi-grid">
+            <div class="client-kpi-tile">
+              <div class="client-kpi-tile__kicker">TOTAL CLIENTS</div>
+              <div class="client-kpi-tile__val tnum" id="clientStatTotalClients">0</div>
+              <div class="client-kpi-tile__sub">Unique client accounts</div>
+            </div>
+            <div class="client-kpi-tile">
+              <div class="client-kpi-tile__kicker">ACCOUNT MANAGERS</div>
+              <div class="client-kpi-tile__val tnum" style="color:#0284c7;" id="clientStatTotalAMs">0</div>
+              <div class="client-kpi-tile__sub">Active Sales &amp; AMs</div>
+            </div>
+            <div class="client-kpi-tile">
+              <div class="client-kpi-tile__kicker">TOTAL RECHARGES</div>
+              <div class="client-kpi-tile__val tnum" id="clientStatTotalRecharges">0</div>
+              <div class="client-kpi-tile__sub">Completed recharges</div>
+            </div>
+            <div class="client-kpi-tile client-kpi-tile--orange">
+              <div class="client-kpi-tile__kicker" style="color:#c2410c;">UNBILLED OUTSTANDING</div>
+              <div class="client-kpi-tile__val tnum" style="color:#ea580c;" id="clientStatOutstanding">₹0</div>
+              <div class="client-kpi-tile__sub" style="color:#9a3412;">Pending invoice raise</div>
+            </div>
+          </div>
+
+          <!-- Client List Filter Controls: Search, View Mode Switch, & Account Manager Quick Pills -->
+          <div style="background:#f8fafc;padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:240px;max-width:420px;">
+                <div class="search-input-wrap" style="width:100%;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="clientListSearchInput" class="form-input form-input--sm" placeholder="Search Client Username, Company, or AM..." />
+                </div>
+              </div>
+
+              <!-- View Mode Toggle: Grouped by AM vs Master Table -->
+              <div style="display:flex;align-items:center;gap:4px;background:#e2e8f0;padding:3px;border-radius:8px;">
+                <button type="button" class="btn btn--sm client-view-toggle active" id="clientViewModeGroupedBtn" style="padding:5px 12px;font-size:12px;border:none;border-radius:6px;font-weight:700;">
+                  📁 Grouped by AM
+                </button>
+                <button type="button" class="btn btn--sm client-view-toggle" id="clientViewModeTableBtn" style="padding:5px 12px;font-size:12px;border:none;border-radius:6px;font-weight:700;background:transparent;color:#475569;">
+                  📋 Master Table
+                </button>
+              </div>
+            </div>
+
+            <!-- Manager Filter Pills (Populated dynamically) -->
+            <div class="status-pills" id="clientListManagerPills" style="margin:0;"></div>
+          </div>
+
+          <!-- VIEW MODE 1: GROUPED BY ACCOUNT MANAGER (CARDS & CLIENTS ACCORDION) -->
+          <div id="clientGroupedViewWrap" style="padding:16px 20px;">
+            <div id="clientGroupedContainer" style="display:flex;flex-direction:column;gap:16px;"></div>
+          </div>
+
+          <!-- VIEW MODE 2: MASTER CLIENT LIST TABLE (SINGLE SEARCHABLE TABLE) -->
+          <div id="clientMasterTableViewWrap" class="drilldown-block hidden" style="padding:16px 20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:15px;color:var(--navy);font-weight:700;" id="clientListSummaryHeading">
+                All Clients &amp; Account Manager Mapping (<span id="clientListCount">0</span> Clients)
+              </h3>
+            </div>
+
+            <div class="table-responsive">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Account Manager</th>
+                    <th>Panel Username</th>
+                    <th>Company / Client Name</th>
+                    <th>Channels Used</th>
+                    <th>Total Recharges</th>
+                    <th>Total Volume (Units)</th>
+                    <th>Unbilled / Outstanding (₹)</th>
+                    <th>Billing Raised (₹)</th>
+                    <th>Total Business (₹)</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="masterClientListTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Account Managers Performance Summary Cards Grid (Hidden to keep Client List clean & uncluttered) -->
+          <div style="padding:16px 20px;border-top:1px solid var(--rule);background:#fafafa;" class="hidden" id="amSummaryCardsWrapper">
+            <h3 style="font-size:13.5px;color:var(--ink-secondary);font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.04em;">
+              Account Managers Outstanding &amp; Billing Summary Cards
+            </h3>
+            <div class="am-cards-grid" id="amSummaryCardsGrid"></div>
+          </div>
+
+          <!-- Drilldown Section: Selected Account Manager's Detailed Individual Entries -->
+          <div class="am-drilldown-section hidden" id="amDrilldownSection">
+            <div class="am-drilldown-header">
+              <div>
+                <span class="mono-badge" id="drilldownKicker">ACCOUNT MANAGER DRILLDOWN</span>
+                <h3 id="drilldownTitle">Selected Account Manager — Individual Entries</h3>
+              </div>
+              <button type="button" class="btn btn--ghost btn--sm" id="closeDrilldownBtn">✕ Close Details</button>
+            </div>
+
+            <div class="drilldown-block">
+              <h4 class="drilldown-subtitle">Individual Recharge Entries</h4>
+              <div class="table-responsive">
+                <table class="history-table">
+                  <thead>
+                    <tr>
+                      <th>ID &amp; Date</th>
+                      <th>Username</th>
+                      <th>Company Name</th>
+                      <th>Service &amp; Count</th>
+                      <th>Amount (₹)</th>
+                      <th>Status</th>
+                      <th>Invoice No.</th>
+                      <th>Proof</th>
+                      <th>Update / View</th>
+                    </tr>
+                  </thead>
+                  <tbody id="amEntriesTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+</div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION (QUICK 1-THUMB TABS ON PHONES) -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+      <button type="button" class="mob-nav-btn active" data-nav="dashboard" id="mobNavDashboard">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="add-recharge" id="mobNavAddRecharge">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>Recharge</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="external-campaign" id="mobNavCampaign">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <span>Campaign</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="billing-queue" id="mobNavBillingQueue">
+        <div style="position:relative;display:inline-flex;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span class="mob-badge tnum" id="mobOpt2Badge">0</span>
+        </div>
+        <span id="mobBillingLabel">Billing</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="history-ledger" id="mobNavHistory">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+        <span id="mobHistoryLabel">History</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="accounts-report" id="mobNavReport">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10h-10z"/><path d="M12 12L2.5 7.5"/></svg>
+        <span id="mobReportLabel">Account</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-nav="error-hub" id="mobNavErrorCode">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Error Hub</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" id="mobNavMenu">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>More</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- MODAL 1: EDIT / UPDATE BILLING STATUS (BILLING DEPT & ADMIN) -->
+  <div class="modal-backdrop hidden" id="editModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" id="editModalId">IMM-1001</span>
+          <h3>Update Billing Status &amp; Recharge Record</h3>
+        </div>
+        <button type="button" class="modal-close" id="closeEditModal" aria-label="Close">✕</button>
+      </div>
+
+      <form id="editForm" class="modal-body">
+        <input type="hidden" id="editEntryId" />
+
+        <!-- Read-only Billing Status Box for Support -->
+        <div id="editSupportStatusBox" class="hidden" style="padding:12px 14px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="form-label" style="margin-bottom:0;font-weight:700;">Billing Status:</span>
+            <span id="editSupportStatusBadge" class="status-badge"></span>
+          </div>
+          <span style="font-size:11.5px;color:var(--ink-secondary);">🔒 Confidential Billing Details</span>
+        </div>
+
+        <div class="accounts-action-box" id="editAccountsActionBox">
+          <div class="form-group">
+            <label class="form-label">Billing Department Status <span class="req">*</span></label>
+            <div class="status-radio-group" id="editStatusGroup">
+              <label class="status-radio">
+                <input type="radio" name="editBillingStatus" value="Pending" />
+                <span>Pending Billing</span>
+              </label>
+              <label class="status-radio">
+                <input type="radio" name="editBillingStatus" value="Billing Raised" />
+                <span>Billing Raised</span>
+              </label>
+              <label class="status-radio">
+                <input type="radio" name="editBillingStatus" value="On Hold" />
+                <span>On Hold / Query</span>
+              </label>
+              <label class="status-radio">
+                <input type="radio" name="editBillingStatus" value="Cancelled" />
+                <span>Billing Cancelled</span>
+              </label>
+            </div>
+          </div>
+
+<div class="form-row">
+            <div class="form-group">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <label class="form-label" for="editBillingCompany" style="margin-bottom:0;">Billing Company (Entity) <span class="req">*</span></label>
+                <button type="button" class="link-btn link-btn--sm" id="editModalAddCompanyLink" onclick="openAdminSettingsModal()" style="font-size:11px;">+ Manage Companies</button>
+              </div>
+              <select id="editBillingCompany" class="form-select">
+                <option value="Immense Air">Immense Air</option>
+                <option value="Immense Smart">Immense Smart</option>
+                <option value="Zion">Zion</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editInvoiceType">Invoice / Billing Type <span class="req">*</span></label>
+              <select id="editInvoiceType" class="form-select">
+                <option value="Tax Invoice">Tax Invoice</option>
+                <option value="Proforma Invoice">Proforma Invoice</option>
+                <option value="Non GST">Non GST</option>
+              </select>
+            </div>
+          </div>
+
+<div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="editInvoiceNumber">Invoice / Tally Reference No.</label>
+              <input type="text" id="editInvoiceNumber" class="form-input" placeholder="e.g. IA/26-27/0108" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editBillingRemarks">Billing Verification Note</label>
+              <input type="text" id="editBillingRemarks" class="form-input" placeholder="e.g. Dispatched tax invoice on email" />
+            </div>
+          </div>
+
+          <!-- Payment Collection Status (Accounts & Admin Only) -->
+          <div class="form-row" style="margin-top:10px;padding-top:10px;border-top:1px dashed #cbd5e1;">
+            <div class="form-group">
+              <label class="form-label" for="editPaymentStatus">Payment Collection Status</label>
+              <select id="editPaymentStatus" class="form-select">
+                <option value="Pending">Payment Pending (Unpaid)</option>
+                <option value="Partial">Partial Payment (Thoda Amount Aaya)</option>
+                <option value="Received">Payment Received (Full Paid)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editPaidAmount">
+                Amount Received (₹) <span id="paymentBalanceHint" style="font-size:11px;color:var(--orange);font-weight:600;margin-left:4px;"></span>
+              </label>
+              <input type="number" id="editPaidAmount" class="form-input tnum" placeholder="0.00" step="0.01" min="0" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="editPaymentMode">Payment Mode / Bank Ref</label>
+              <input type="text" id="editPaymentMode" class="form-input" placeholder="e.g. NEFT / UPI / Cheque / Bank Transfer" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editPaymentDate">Payment Date</label>
+              <input type="date" id="editPaymentDate" class="form-input" />
+            </div>
+          </div>
+
+          <!-- ===============================================================
+               PAYMENT FOLLOW-UP COMMUNICATION BOX (ADMIN ⇄ BILLING DESK)
+               =============================================================== -->
+          <div id="editFollowUpCard" style="margin-top:14px;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:8px;padding:14px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">📞</span>
+                <strong style="font-size:13.5px;color:var(--navy);">Payment Follow-Up Communication (Admin ⇄ Billing)</strong>
+              </div>
+              <span id="editFollowUpBadge" class="mono-badge">No Follow-up</span>
+            </div>
+
+            <!-- ADMIN VIEW IN EDIT MODAL -->
+            <div id="adminFollowUpSectionInModal" class="hidden">
+              <div id="adminFollowUpLatestResponse" class="hidden" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:12px;margin-bottom:12px;">
+                <div style="font-weight:700;color:#16a34a;font-size:12.5px;display:flex;align-items:center;justify-content:space-between;">
+                  <span>🟢 Billing Follow-Up Update Received</span>
+                  <span id="adminFollowUpUpdatedTime" style="font-weight:500;font-size:11.5px;color:#64748b;"></span>
+                </div>
+                <div style="margin-top:6px;font-size:13px;color:#1e293b;">
+                  <div><strong>Outcome:</strong> <span id="adminFollowUpOutcomeText">—</span></div>
+                  <div style="margin-top:4px;"><strong>Billing Remarks:</strong> <span id="adminFollowUpRemarksText">—</span></div>
+                  <div style="margin-top:4px;" id="adminFollowUpNextDateWrap"><strong>Next Promised Date:</strong> <span id="adminFollowUpNextDateText">—</span></div>
+                </div>
+
+                <!-- Attached Supporting Proof Thumbnail -->
+                <div id="adminFollowUpProofWrap" class="hidden" style="margin-top:8px;padding-top:8px;border-top:1px dashed #bbf7d0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <img id="adminFollowUpProofThumb" src="" alt="Supporting Proof" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
+                    <span style="font-size:12px;color:#0369a1;font-weight:600;" id="adminFollowUpProofName">supporting_proof.png</span>
+                  </div>
+                  <button type="button" class="btn btn--outline btn--sm" id="btnAdminViewFollowUpProof">
+                    <span>👁️ View Supporting Proof</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Admin action area -->
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <label class="form-label" style="margin:0;font-size:12px;">Request Follow-Up from Billing Desk:</label>
+                <div style="display:flex;gap:8px;">
+                  <input type="text" id="adminModalFollowUpInput" class="form-input form-input--sm" placeholder="Enter follow-up instruction (e.g. 'Client se urgent payment clearance ka follow-up lo')" />
+                  <button type="button" class="btn btn--accent btn--sm" id="btnAdminSubmitFollowUpRequest" style="white-space:nowrap;">
+                    <span>📞 Request Follow-Up</span>
+                  </button>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <button type="button" class="followup-chip-btn" onclick="document.getElementById('adminModalFollowUpInput').value='Urgent payment follow-up required with client accounts'">Urgent follow-up</button>
+                  <button type="button" class="followup-chip-btn" onclick="document.getElementById('adminModalFollowUpInput').value='Check reason for payment delay & collect expected clearance date'">Check delay reason</button>
+                  <button type="button" class="followup-chip-btn" onclick="document.getElementById('adminModalFollowUpInput').value='Collect RTGS / NEFT transfer slip / UTR proof'">Collect UTR proof</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- BILLING VIEW IN EDIT MODAL -->
+            <div id="billingFollowUpSectionInModal" class="hidden">
+              <div id="billingInstructionNotice" class="hidden" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:10px 12px;margin-bottom:12px;">
+                <div style="font-weight:700;color:#c2410c;font-size:12px;">⚠️ ADMIN PAYMENT FOLLOW-UP REQUEST:</div>
+                <div id="billingInstructionText" style="font-size:13px;color:#9a3412;margin-top:2px;font-weight:600;"></div>
+                <div id="billingInstructionTime" style="font-size:11px;color:#b45309;margin-top:2px;"></div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:12px;">Follow-Up Outcome</label>
+                    <select id="modalBillingFollowUpOutcome" class="form-select form-select--sm">
+                      <option value="Payment Promised / Committed">Payment Promised / Committed</option>
+                      <option value="Full Payment Received">Full Payment Received</option>
+                      <option value="Partial Payment Received">Partial Payment Received</option>
+                      <option value="Invoice Under Client Review">Invoice Under Client Review</option>
+                      <option value="Dispute / Rate Query Raised">Dispute / Rate Query Raised</option>
+                      <option value="Spoke to Client Accounts">Spoke to Client Accounts</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:12px;">Next Promised Payment Date</label>
+                    <input type="date" id="modalBillingFollowUpNextDate" class="form-input form-input--sm" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-size:12px;">Billing Follow-Up Note &amp; Client Conversation Remarks</label>
+                  <input type="text" id="modalBillingFollowUpRemarks" class="form-input form-input--sm" placeholder="e.g. Spoke to Accounts Head Mr. Rajiv, promised RTGS payment on Monday" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-size:12px;">Attach Supporting Proof (Screenshot / Email / Bank Slip)</label>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <input type="file" id="modalBillingFollowUpProofFile" class="form-input form-input--sm" accept="image/*,.pdf" style="padding:4px 8px;" />
+                    <div id="modalBillingProofPreviewWrap" class="hidden" style="display:flex;align-items:center;gap:6px;">
+                      <img id="modalBillingProofThumb" src="" alt="Proof" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #cbd5e1;" />
+                      <span id="modalBillingProofFileName" style="font-size:11px;color:#0369a1;font-weight:600;"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex;justify-content:flex-end;">
+                  <button type="button" class="btn btn--accent btn--sm" id="btnModalSubmitBillingFollowUp">
+                    <span>🚀 Submit Follow-Up &amp; Supporting Proof to Admin</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+<div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="editUsername">Panel Username <span id="editUsernameLockTag" class="hidden" style="font-size:10.5px;color:#64748b;font-weight:600;margin-left:4px;">🔒 (Locked for Accounts)</span></label>
+            <input type="text" id="editUsername" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editClientName">Organization Name</label>
+            <input type="text" id="editClientName" class="form-input" />
+          </div>
+        </div>
+
+        <!-- Service Channel & Account Manager -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="editService">Service Channel(s)</label>
+            <input type="text" id="editService" class="form-input" readonly style="background:var(--paper);font-weight:700;" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editAccountManager">Sales / Account Manager <span id="editAmLockTag" class="hidden" style="font-size:10.5px;color:#64748b;font-weight:600;margin-left:4px;">🔒 (Locked for Accounts)</span></label>
+            <select id="editAccountManager" class="form-select"></select>
+          </div>
+        </div>
+
+        <!-- Per-Service Units & Rate Table (SMS ke samne SMS ka rate, RCS ke samne RCS ka rate, WhatsApp ke samne WhatsApp ka rate) -->
+        <div class="form-group" style="margin:12px 0;">
+          <div class="form-label-row">
+            <label class="form-label" style="margin-bottom:0;font-weight:700;">Service Channels, Units &amp; Unit Rates (₹) <span class="req">*</span></label>
+            <span class="mono-hint" style="color:var(--accent);">ENTER RATES AS PER TALLY / PO</span>
+          </div>
+          <div id="editRatesContainer" style="margin-top:6px;background:var(--paper-subtle);border:1px solid var(--rule);border-radius:8px;padding:12px;">
+            <!-- Dynamically populated rows for SMS, RCS, WhatsApp, etc. -->
+          </div>
+        </div>
+
+        <!-- 18% GST Enable / Disable Box (For Accounts & Billing) -->
+        <div id="editGstBox" style="background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:8px;padding:12px 14px;margin-bottom:12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:700;color:var(--navy);font-size:13.5px;margin:0;user-select:none;">
+              <input type="checkbox" id="editGstToggle" style="width:18px;height:18px;accent-color:var(--accent);cursor:pointer;" checked />
+              <span>Apply 18% GST (Tax Invoice)</span>
+            </label>
+            <span id="editGstAmountBadge" class="badge badge--accent tnum" style="font-size:12px;font-weight:700;">GST (18%): ₹0.00</span>
+          </div>
+          <div id="editGstBreakdownRow" style="margin-top:8px;padding-top:8px;border-top:1px dashed #cbd5e1;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-secondary);">
+            <span>Taxable Subtotal: <strong id="editBaseAmountText" class="tnum" style="color:var(--navy);">₹0.00</strong></span>
+            <span>GST (18% Tax): <strong id="editGstTaxText" class="tnum" style="color:var(--accent);">₹0.00</strong></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="editRechargeCount">Total Combined Units</label>
+            <input type="number" id="editRechargeCount" class="form-input tnum" readonly style="background:var(--paper);font-weight:700;" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editTotalAmount">Total Billable Amount (₹) <span class="req">*</span></label>
+            <input type="number" id="editTotalAmount" class="form-input form-input--lg tnum" step="0.01" placeholder="Auto-calculated from rates" style="font-weight:800;color:var(--navy);" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="editRemarks">Support Dispatch Note</label>
+          <input type="text" id="editRemarks" class="form-input" />
+        </div>
+
+        <div class="form-group" id="editScreenshotGroup">
+          <label class="form-label" for="editScreenshotInput">Approval Proof Screenshot</label>
+          <input type="file" id="editScreenshotInput" class="form-input" accept="image/*,.pdf" />
+          
+          <div id="editScreenshotLockNotice" class="hidden" style="padding:10px 14px;background:rgba(13,27,51,0.04);border:1px dashed var(--rule-strong);border-radius:8px;font-size:12px;color:var(--ink-secondary);display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:16px;">🔒</span>
+            <div>
+              <strong style="color:var(--navy);">Supporting Proof Locked:</strong>
+              <span>Accounts / Billing department cannot replace or alter client approval proof screenshot.</span>
+            </div>
+          </div>
+
+          <div id="editCurrentProofWrap" class="hidden" style="margin-top:8px;">
+            <a href="#" id="editViewCurrentProofBtn" target="_blank" class="btn btn--sm btn--ghost" style="display:inline-flex;align-items:center;gap:5px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>View Attached Proof Screenshot ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn--danger-outline btn--sm" id="deleteEntryBtn">Delete Entry</button>
+          <div class="modal-footer__right">
+            <button type="button" class="btn btn--ghost" id="cancelEditBtn">Cancel</button>
+            <button type="submit" class="btn btn--accent" id="saveEditBtn">Save &amp; Update Record</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT / UPDATE EXTERNAL CAMPAIGN -->
+  <div class="modal-backdrop hidden" id="campaignEditModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" id="editCampaignModalId">CMP-1001</span>
+          <h3>Update External Campaign Status</h3>
+        </div>
+        <button type="button" class="modal-close" id="closeCampaignEditModal" aria-label="Close">✕</button>
+      </div>
+
+      <form id="campaignEditForm" class="modal-body">
+        <input type="hidden" id="editCampaignName" />
+        <input type="hidden" id="editCampaignSenderId" />
+        <input type="hidden" id="editCampaignStatus" value="Completed" />
+        <input type="hidden" id="editCampaignClientName" />
+
+<div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Client Username</label>
+            <input type="text" id="editCampaignUsername" class="form-input" readonly style="background:var(--paper);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CPaaS Channel</label>
+            <input type="text" id="editCampaignService" class="form-input" readonly style="background:var(--paper);" />
+          </div>
+        </div>
+
+<div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Campaign Units / Count</label>
+            <input type="number" id="editCampaignUnits" class="form-input tnum" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Billing Status</label>
+            <select id="editCampaignBillingStatus" class="form-select">
+              <option value="Pending">Pending</option>
+              <option value="Billing Raised">Billing Raised</option>
+              <option value="On Hold">On Hold</option>
+            </select>
+          </div>
+        </div>
+
+<div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Rate Per Unit (₹) <span class="text-muted">(Accounts)</span></label>
+            <input type="number" id="editCampaignRate" class="form-input tnum" placeholder="0.38" step="0.0001" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Billable Amount (₹) <span class="req">*</span></label>
+            <input type="number" id="editCampaignAmount" class="form-input tnum" placeholder="₹ Total" step="0.01" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Invoice Number (Tally / GST)</label>
+          <input type="text" id="editCampaignInvoice" class="form-input" placeholder="e.g. IA/CMP/012" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Campaign Remarks / Notes</label>
+          <textarea id="editCampaignRemarks" class="form-textarea" rows="2"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn--danger-outline btn--sm" id="deleteCampaignBtn">Delete Campaign</button>
+          <div class="modal-footer__right">
+            <button type="button" class="btn btn--ghost" id="cancelCampaignEditBtn">Cancel</button>
+            <button type="submit" class="btn btn--accent" id="saveCampaignEditBtn">Save &amp; Update Campaign</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ADMIN TEAM & 3 ACCOUNTS CREDENTIALS SETTINGS -->
+  <div class="modal-backdrop hidden" id="adminSettingsModal">
+    <div class="modal-card" style="max-width: 680px; width: 95%;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">SUPER ADMIN SETTINGS</span>
+          <h3 style="margin-top:2px;">Manage Companies, Sales Managers &amp; Logins</h3>
+        </div>
+        <button type="button" class="modal-close" id="closeAdminSettingsModal" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 18px;">
+        
+        <!-- SECTION 1: MANAGE COMPANIES / BILLING ENTITIES -->
+        <div class="form-group" style="background:#f8fafc; border:1px solid var(--rule); border-radius:8px; padding:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <label class="form-label" style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:0;">
+              🏢 Billing Companies (Entities)
+            </label>
+            <span class="mono-hint" id="adminCompanyCountHint">3 Companies</span>
+          </div>
+          <p style="font-size:12px; color:#64748b; margin:0 0 10px 0;">
+            Add multiple billing companies (e.g. Immense Smart Solution, Immense Air, Zion). Invoicing dropdowns and filters will automatically update.
+          </p>
+
+          <!-- Current Company Badges List -->
+          <div class="am-tags-wrap" id="adminCompaniesList" style="margin-bottom:12px; min-height:36px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+
+          <!-- Add New Company Input & Button -->
+          <div class="form-row" style="gap:8px;">
+            <input type="text" id="newCompanyInput" class="form-input form-input--sm" placeholder="Enter new company name (e.g. Immense Smart Solution)" />
+            <button type="button" class="btn btn--accent btn--sm" id="adminAddCompanyBtn">
+              <span>+ Add Company</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 2: MANAGE ACCOUNT MANAGERS -->
+        <div class="form-group" style="background:#f8fafc; border:1px solid var(--rule); border-radius:8px; padding:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <label class="form-label" style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:0;">
+              👥 Sales &amp; Account Managers
+            </label>
+            <span class="mono-hint" id="adminAmCountHint">4 Managers</span>
+          </div>
+          <p style="font-size:12px; color:#64748b; margin:0 0 10px 0;">
+            Active sales managers assigned to client accounts.
+          </p>
+
+          <div class="am-tags-wrap" id="adminManagersList" style="margin-bottom:12px; min-height:36px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+
+          <div class="form-row" style="gap:8px;">
+            <input type="text" id="newManagerInput" class="form-input form-input--sm" placeholder="Enter new Account Manager name" />
+            <button type="button" class="btn btn--navy btn--sm" id="adminAddManagerBtn">
+              <span>+ Add Manager</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 3: 3 DEPARTMENT CREDENTIALS -->
+        <form id="credentialsUpdateForm" class="form-group" style="background:#f8fafc; border:1px solid var(--rule); border-radius:8px; padding:16px;">
+          <label class="form-label" style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">
+            🔐 3 Department Login Credentials
+          </label>
+          <p style="font-size:12px; color:#64748b; margin:0 0 12px 0;">
+            Update passwords for Admin, Billing &amp; Support portals.
+          </p>
+          <div id="adminCredentialsFields" style="display:flex;flex-direction:column;gap:10px;"></div>
+          <div style="margin-top:14px;display:flex;justify-content:flex-end;">
+            <button type="submit" class="btn btn--navy btn--sm">Save Credentials</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: FULLSCREEN SCREENSHOT VIEWER -->
+  <div class="modal-backdrop hidden" id="imageModal">
+    <div class="modal-card modal-card--image">
+      <div class="modal-header">
+        <h3 id="imageModalTitle">Approval Screenshot Proof</h3>
+        <div class="modal-header__actions">
+          <a href="#" id="downloadModalImgBtn" class="btn btn--accent btn--sm" download>Download Original Proof</a>
+          <button type="button" class="modal-close" id="closeImageModal" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="image-viewer-body">
+        <img id="modalFullImage" src="" alt="Approval Screenshot Proof" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: CHANNEL BREAKDOWN POPUP (SMS, RCS, WHATSAPP, ETC.) -->
+  <div class="modal-backdrop hidden" id="channelBreakdownModal">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" id="channelBreakdownBadge">CHANNEL BREAKDOWN</span>
+          <h3 id="channelBreakdownTitle" style="margin-top:4px;font-size:18px;">CPaaS Service Channels &amp; Credits</h3>
+          <div id="channelBreakdownSubtitle" style="font-size:12px;color:var(--ink-secondary);margin-top:2px;">Showing active filtered recharges</div>
+        </div>
+        <button type="button" class="modal-close" id="closeChannelBreakdownModal" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding:18px 22px;">
+        <!-- Channels Container List -->
+        <div id="channelBreakdownList" style="display:flex;flex-direction:column;gap:12px;"></div>
+
+        <!-- Summary Strip -->
+        <div id="channelBreakdownSummary" style="margin-top:16px;padding:14px 16px;background:#f8fafc;border:1px solid var(--rule);border-radius:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;"></div>
+      </div>
+
+      <div class="modal-footer" style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(--rule);background:#fafafa;">
+        <button type="button" class="btn btn--ghost" id="cancelChannelBreakdownBtn">Close</button>
+        <a href="details.html?type=all" target="_blank" class="btn btn--navy" id="channelMoreDetailsBtn" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">
+          <span>More Details</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: QUICK ADMIN PAYMENT FOLLOW-UP REQUEST MODAL -->
+  <div class="modal-backdrop hidden" id="quickAdminFollowUpModal">
+    <div class="modal-card" style="max-width: 540px;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" style="background:#fff7ed;color:#ea580c;border:1px solid #fed7aa;">ADMIN ➔ BILLING DESK</span>
+          <h3 style="margin-top:4px;">Request Payment Follow-Up</h3>
+        </div>
+        <button type="button" class="modal-close" id="closeQuickAdminFollowUpModal" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding:18px 22px;">
+        <div style="background:#f8fafc;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div>
+              <span class="mono-hint">CLIENT ACCOUNT</span>
+              <div style="font-size:15px;font-weight:700;color:var(--navy);" id="quickFollowUpClientName">—</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="mono-hint">PENDING AMOUNT</span>
+              <div style="font-size:15px;font-weight:800;color:var(--orange);" id="quickFollowUpPendingAmt">₹0</div>
+            </div>
+          </div>
+        </div>
+
+        <form id="quickAdminFollowUpForm" style="display:flex;flex-direction:column;gap:12px;">
+          <input type="hidden" id="quickFollowUpRechargeId" />
+          <div class="form-group">
+            <label class="form-label" for="quickAdminInstruction">Follow-Up Instruction for Billing Desk <span class="req">*</span></label>
+            <textarea id="quickAdminInstruction" class="form-input" rows="3" placeholder="Enter instructions for billing desk (e.g. 'Client se urgent payment clearance ka follow-up lo')" required></textarea>
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button type="button" class="followup-chip-btn" onclick="document.getElementById('quickAdminInstruction').value='Urgent payment follow-up required with client accounts team'">Urgent follow-up</button>
+            <button type="button" class="followup-chip-btn" onclick="document.getElementById('quickAdminInstruction').value='Check reason for payment delay & collect expected clearance date'">Check delay reason</button>
+            <button type="button" class="followup-chip-btn" onclick="document.getElementById('quickAdminInstruction').value='Collect RTGS / NEFT transfer slip / UTR proof'">Collect UTR proof</button>
+          </div>
+
+          <div class="modal-footer" style="padding:14px 0 0 0;margin-top:6px;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;gap:10px;">
+            <button type="button" class="btn btn--ghost" id="cancelQuickAdminFollowUpBtn">Cancel</button>
+            <button type="submit" class="btn btn--accent" id="submitQuickAdminFollowUpBtn">
+              <span>📞 Send Request to Billing</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: QUICK BILLING FOLLOW-UP RESOLUTION & PROOF MODAL -->
+  <div class="modal-backdrop hidden" id="quickBillingFollowUpModal">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">BILLING ➔ ADMIN UPDATE</span>
+          <h3 style="margin-top:4px;">Update Follow-Up with Supporting Proof</h3>
+        </div>
+        <button type="button" class="modal-close" id="closeQuickBillingFollowUpModal" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding:18px 22px;">
+        <!-- Admin Request Notice Strip -->
+        <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+          <div style="font-weight:700;color:#c2410c;font-size:11.5px;text-transform:uppercase;">Admin Instruction:</div>
+          <div style="font-size:13.5px;color:#9a3412;margin-top:3px;font-weight:600;" id="quickBillingAdminNoticeText">—</div>
+          <div style="font-size:11px;color:#b45309;margin-top:2px;" id="quickBillingAdminNoticeTime"></div>
+        </div>
+
+        <form id="quickBillingFollowUpForm" style="display:flex;flex-direction:column;gap:12px;">
+          <input type="hidden" id="quickBillingRechargeId" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="quickBillingOutcome">Follow-Up Outcome <span class="req">*</span></label>
+              <select id="quickBillingOutcome" class="form-select" required>
+                <option value="Payment Promised / Committed">Payment Promised / Committed</option>
+                <option value="Full Payment Received">Full Payment Received</option>
+                <option value="Partial Payment Received">Partial Payment Received</option>
+                <option value="Invoice Under Client Review">Invoice Under Client Review</option>
+                <option value="Dispute / Rate Query Raised">Dispute / Rate Query Raised</option>
+                <option value="Spoke to Client Accounts">Spoke to Client Accounts</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quickBillingNextDate">Next Expected Payment Date</label>
+              <input type="date" id="quickBillingNextDate" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="quickBillingRemarks">Billing Follow-Up Note &amp; Remarks <span class="req">*</span></label>
+            <textarea id="quickBillingRemarks" class="form-input" rows="2" placeholder="e.g. Spoke to accounts manager Mr. Amit, he confirmed payment will be released on Monday via RTGS" required></textarea>
+          </div>
+
+          <!-- Payment Update Option inside Follow-up -->
+          <div class="form-row" style="background:#f8fafc;padding:10px 12px;border:1px dashed #cbd5e1;border-radius:6px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" style="font-size:11.5px;">Update Payment Status (Optional)</label>
+              <select id="quickBillingPaymentStatus" class="form-select form-select--sm">
+                <option value="">Keep Existing</option>
+                <option value="Pending">Payment Pending</option>
+                <option value="Partial">Partial Payment Received</option>
+                <option value="Received">Full Payment Received</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" style="font-size:11.5px;">Amount Received (₹)</label>
+              <input type="number" id="quickBillingPaidAmount" class="form-input form-input--sm tnum" placeholder="0.00" step="0.01" min="0" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Attach Supporting Proof (Screenshot / Email / Bank Receipt) <span class="req">*</span></label>
+            <input type="file" id="quickBillingProofFile" class="form-input form-input--sm" accept="image/*,.pdf" style="padding:5px 8px;" />
+            <div id="quickBillingProofPreviewWrap" class="hidden proof-preview-wrap">
+              <img id="quickBillingProofThumb" class="proof-preview-thumb" src="" alt="Proof Preview" />
+              <div>
+                <div id="quickBillingProofName" style="font-weight:600;font-size:12px;color:var(--navy);">proof.png</div>
+                <div style="font-size:11px;color:#16a34a;">Supporting file attached</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer" style="padding:14px 0 0 0;margin-top:6px;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;gap:10px;">
+            <button type="button" class="btn btn--ghost" id="cancelQuickBillingFollowUpBtn">Cancel</button>
+            <button type="submit" class="btn btn--accent" id="submitQuickBillingFollowUpBtn">
+              <span>🚀 Submit Follow-Up &amp; Supporting to Admin</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: TODAY'S PAYMENT CALL REMINDERS MODAL -->
+  <!-- =====================================================================
+       MODAL: ACCOUNT KPI CARD DRILL-DOWN DETAILS MODAL
+       ===================================================================== -->
+  <div class="modal-backdrop hidden" id="kpiDetailsModal">
+    <div class="modal-card" style="max-width: 1040px; width: 95%;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" id="kpiDetailsBadge">ACCOUNT DRILL-DOWN</span>
+          <h3 id="kpiDetailsTitle" style="margin-top:2px;">Detailed Records</h3>
+          <p id="kpiDetailsSubtitle" style="font-size:12px;color:#64748b;margin:2px 0 0 0;">Showing records matching this account category</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" class="btn btn--outline btn--sm" id="kpiDetailsExportBtn" onclick="exportKpiModalData()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export (Excel)</span>
+          </button>
+          <button type="button" class="modal-close" onclick="closeKpiDetailsModal()" aria-label="Close modal">&times;</button>
+        </div>
+      </div>
+
+      <!-- Quick summary strip inside modal -->
+      <div style="background:#f8fafc;padding:12px 20px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div>
+            <span style="font-size:10.5px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">Category Records</span>
+            <div style="font-size:15px;font-weight:800;color:var(--navy);" id="kpiModalCount">0 records</div>
+          </div>
+          <div style="width:1px;height:24px;background:var(--rule);"></div>
+          <div>
+            <span style="font-size:10.5px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">Total Amount</span>
+            <div style="font-size:15px;font-weight:800;color:#16a34a;" class="tnum" id="kpiModalAmount">₹0</div>
+          </div>
+        </div>
+
+        <div class="search-input-wrap" style="max-width:300px;width:100%;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="kpiModalSearchInput" class="form-input form-input--sm" placeholder="Search client, company, AM, ID..." oninput="filterKpiModalList(this.value)" />
+        </div>
+      </div>
+
+      <!-- Scrollable Table Container -->
+      <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th style="width:120px;">ID &amp; Date</th>
+              <th style="min-width:160px;">Client &amp; Company</th>
+              <th style="min-width:130px;">Service / Units</th>
+              <th style="min-width:110px;">Amount (₹)</th>
+              <th style="min-width:110px;">Sales / AM</th>
+              <th style="min-width:125px;">Billing Status</th>
+              <th style="min-width:110px;">Payment Status</th>
+              <th style="min-width:140px;">Follow-Up / Next Call</th>
+              <th style="min-width:130px; text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="kpiDetailsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer" style="padding:12px 20px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;background:var(--paper);">
+        <span class="mono-hint" id="kpiModalFooterHint">Click "Full Details ↗" to view the complete client ledger</span>
+        <button type="button" class="btn btn--outline btn--sm" onclick="closeKpiDetailsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="paymentRemindersModal">
+    <div class="modal-card" style="max-width: 740px;">
+      <div class="modal-header">
+        <div>
+          <span class="mono-badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;">DAILY PAYMENT REMINDER DESK</span>
+          <h3 style="margin-top:4px;display:flex;align-items:center;gap:8px;">
+            <span>📞 Today's Payment Follow-Up Calls</span>
+            <span class="mono-badge" style="background:#ea580c;color:#fff;" id="modalReminderDateBadge">Today</span>
+          </h3>
+        </div>
+        <button type="button" class="modal-close" id="closePaymentRemindersModal" onclick="closePaymentRemindersModal()" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding:18px 22px;">
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;color:#1e40af;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">💡</span>
+          <span>Accounts &amp; Billing Desk: In clients ke follow-up me aaj call karne ka commitment diya gaya tha. Kripya payment ke liye baat karein aur status update karein.</span>
+        </div>
+
+        <div id="paymentRemindersListContainer" style="display:flex;flex-direction:column;gap:12px;max-height:460px;overflow-y:auto;padding-right:4px;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;">
+        <span style="font-size:12px;color:#64748b;" id="modalReminderFooterText">Total 0 calls scheduled</span>
+        <button type="button" class="btn btn--outline btn--sm" onclick="closePaymentRemindersModal()">Close Window</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       REAL-TIME FLOATING ALERT POPUP: SUPPORT RECHARGE SUBMISSION
+       ======================================================================= -->
+  <div id="newRechargeAlertPopup" class="new-recharge-popup hidden" role="dialog" aria-live="assertive">
+    <div class="new-recharge-popup__card">
+      <div class="new-recharge-popup__header">
+        <div class="new-recharge-popup__title-wrap">
+          <span class="new-recharge-pulse-dot"></span>
+          <span class="new-recharge-popup__title">New Recharge Submitted!</span>
+        </div>
+        <button type="button" class="new-recharge-popup__close" onclick="closeNewRechargeAlertPopup()" title="Close alert">✕</button>
+      </div>
+
+      <div class="new-recharge-popup__body">
+        <div class="new-recharge-meta-row">
+          <span class="new-recharge-id-badge" id="alertPopupRechargeId">IMM-1005</span>
+          <span class="new-recharge-channel-badge" id="alertPopupChannel">SMS</span>
+          <span class="new-recharge-company-badge" id="alertPopupCompany">Immense Air</span>
+        </div>
+
+        <div class="new-recharge-details-box">
+          <div class="new-recharge-client-name" id="alertPopupClient">Client Username</div>
+          <div class="new-recharge-credits-val">
+            <strong id="alertPopupCredits">50,000</strong> <small>Credits</small>
+            <span class="new-recharge-amount" id="alertPopupAmount">₹5,900</span>
+          </div>
+          <div class="new-recharge-sub-info" id="alertPopupSubInfo">Submitted by Support just now</div>
+        </div>
+      </div>
+
+      <div class="new-recharge-popup__actions">
+        <button type="button" class="btn--ack-pulse" id="alertPopupAcknowledgeBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Acknowledge Now</span>
+        </button>
+        <button type="button" class="btn btn--navy btn--sm" id="alertPopupViewBtn">
+          <span>View &amp; Raise Bill ↗</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="chart.min.js"></script>
+  <script src="errors-data.js"></script>
+  <script src="app.js?v=6.3"></script>
+</body>
+</html>

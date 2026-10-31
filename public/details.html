@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Immense Air — Complete Recharge & Billing Details</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=4.4" />
+  <style>
+    body {
+      background: var(--paper);
+      color: var(--ink-primary);
+    }
+    .details-topbar {
+      background: var(--navy);
+      color: #FFFFFF;
+      padding: 10px 24px;
+      height: 58px;
+      max-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+    }
+    .details-topbar__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo-frame {
+      width: 36px !important;
+      height: 36px !important;
+      max-width: 36px !important;
+      max-height: 36px !important;
+      background: #FFFFFF;
+      border-radius: 6px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .brand-logo {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 30px !important;
+      max-height: 30px !important;
+      object-fit: contain !important;
+      display: block;
+    }
+    .details-topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+    .details-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 26px 24px 64px 24px;
+    }
+    .details-hero {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 20px;
+    }
+    .details-hero__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-top: 4px;
+    }
+    .details-hero__sub {
+      font-size: 13.5px;
+      color: var(--ink-secondary);
+      margin-top: 3px;
+    }
+    .details-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 900px) {
+      .details-two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+    .detail-box {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .detail-box--recharge {
+      border-top: 4px solid var(--navy);
+    }
+    .detail-box--billing {
+      border-top: 4px solid var(--orange);
+    }
+    .detail-box__head {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FAFBFC;
+    }
+    .detail-box__head h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .detail-rows {
+      padding: 8px 22px 18px 22px;
+    }
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--rule);
+      font-size: 13.5px;
+    }
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+    .detail-row__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .detail-row__val {
+      font-weight: 700;
+      color: var(--navy);
+      text-align: right;
+      word-break: break-word;
+    }
+    .proof-showcase {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      padding: 20px 24px;
+    }
+    .proof-showcase__img-wrap {
+      margin-top: 14px;
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+    }
+    .proof-showcase__img-wrap img {
+      max-width: 100%;
+      max-height: 620px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    @media (max-width: 768px) {
+      .details-topbar {
+        height: auto !important;
+        max-height: none !important;
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .details-topbar__actions {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        white-space: nowrap;
+      }
+      .details-container {
+        padding: 14px 12px 48px 12px;
+      }
+      .details-hero {
+        padding: 16px;
+      }
+      .details-hero__title {
+        font-size: 20px;
+      }
+      .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .detail-row__val {
+        text-align: left;
+      }
+    }
+    @media print {
+      .details-topbar, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="details-topbar">
+    <div class="details-topbar__left">
+      <div class="brand-logo-frame">
+        <img src="logo.jpg" alt="Immense Air" class="brand-logo" />
+      </div>
+      <div>
+        <div class="brand-title">IMMENSE AIR</div>
+        <div class="brand-sub">RECHARGE &amp; BILLING COMPLETE DETAILS VIEW</div>
+      </div>
+    </div>
+
+    <div class="details-topbar__actions">
+      <a href="details.html?type=all" class="btn btn--ghost btn--sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2);">All Recharges &amp; Billing</a>
+      <a href="details.html?type=raised" class="btn btn--ghost btn--sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2);">Billing Raised Only</a>
+      <a href="details.html?type=pending" class="btn btn--ghost btn--sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2);">Pending Recharge Only</a>
+      <button type="button" class="btn btn--accent btn--sm" onclick="window.print()">Print / Save PDF</button>
+      <a href="index.html" class="btn btn--ghost btn--sm" style="background:#fff;color:var(--navy);">← Back to Portal</a>
+    </div>
+  </header>
+
+  <main class="details-container">
+
+    <!-- SINGLE RECORD COMPLETE DETAILS VIEW -->
+    <div id="singleEntryView" class="hidden">
+      <div class="details-hero">
+        <div>
+          <span class="mono-badge" id="singleBadgeId">IMM-1001</span>
+          <h1 class="details-hero__title" id="singleTitle">Client Recharge &amp; Billing Sheet</h1>
+          <p class="details-hero__sub" id="singleSubtitle">Complete recharge details, billing verification status, and client approval proof.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span id="singleStatusBadge" class="status-badge status-badge--pending">Pending Billing</span>
+          <button type="button" class="btn btn--danger-outline btn--sm no-print hidden" id="singleDeleteBtn" onclick="deleteSingleSheetRecord()">🗑 Delete Record</button>
+        </div>
+      </div>
+
+      <!-- Side-by-side: 1. RECHARGE DETAILS + 2. BILLING DETAILS -->
+      <div class="details-two-col">
+        <!-- Box 1: Recharge Details -->
+        <div class="detail-box detail-box--recharge">
+          <div class="detail-box__head">
+            <div>
+              <span class="mono-label">SECTION 01</span>
+              <h3>Recharge Details</h3>
+            </div>
+            <span class="service-tag" id="singleServiceTag" data-svc="SMS">SMS</span>
+          </div>
+          <div class="detail-rows" id="rechargeDetailsRows"></div>
+        </div>
+
+        <!-- Box 2: Billing Details -->
+        <div class="detail-box detail-box--billing">
+          <div class="detail-box__head">
+            <div>
+              <span class="mono-label">SECTION 02</span>
+              <h3>Billing Details</h3>
+            </div>
+            <span class="mono-hint" id="singleInvoiceTag">INVOICE STATUS</span>
+          </div>
+          <div class="detail-rows" id="billingDetailsRows"></div>
+
+          <!-- Quick Billing Update Form inside New Tab (STRICTLY RESTRICTED TO ACCOUNTS / BILLING DEPT ONLY) -->
+          <form id="singleQuickBillingForm" class="no-print hidden" style="padding:16px 22px;background:var(--paper);border-top:1px solid var(--rule);">
+            <div class="mono-label" style="margin-bottom:8px;color:var(--navy);">BILLING DEPARTMENT ONLY · UPDATE STATUS &amp; INVOICE</div>
+            <div class="form-row" style="margin-bottom:10px;">
+              <div>
+                <label class="field-label">BILLING STATUS</label>
+                <select id="quickStatusSelect" class="form-select form-select--sm">
+                  <option value="Pending">Pending Billing</option>
+                  <option value="Billing Raised">Billing Raised</option>
+                  <option value="On Hold">On Hold / Query</option>
+                  <option value="Cancelled">Billing Cancelled</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">BILLING COMPANY (ENTITY)</label>
+                <select id="quickBillingCompany" class="form-select form-select--sm">
+                  <option value="Immense Air">Immense Air</option>
+                  <option value="Immense Smart">Immense Smart</option>
+                  <option value="Zion">Zion</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" style="margin-bottom:10px;">
+              <div>
+                <label class="field-label">INVOICE / BILLING TYPE</label>
+                <select id="quickInvoiceType" class="form-select form-select--sm">
+                  <option value="Tax Invoice">Tax Invoice</option>
+                  <option value="Proforma Invoice">Proforma Invoice</option>
+                  <option value="Non GST">Non GST</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">INVOICE / TALLY BILL NO.</label>
+                <input type="text" id="quickInvoiceInput" class="form-input form-input--sm" placeholder="e.g. IA/26-27/0205" />
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="text" id="quickBillingRemarksInput" class="form-input form-input--sm" placeholder="Billing verification note / remarks..." style="flex:1;" />
+              <button type="submit" class="btn btn--accent btn--sm">Save Billing Update</button>
+            </div>
+          </form>
+
+          <!-- Read-only notice for Admin and Support -->
+          <div id="billingLockedNotice" class="no-print" style="padding:14px 22px;background:var(--paper);border-top:1px solid var(--rule);display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-secondary);">
+            <span style="font-size:17px;">🔒</span>
+            <div>
+              <strong style="color:var(--navy);">Billing Department Only:</strong>
+              <span>Billing status &amp; invoice update is strictly restricted to Billing / Accounts department. Admin and Support cannot change billing status.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Box 3: Approval Proof Screenshot -->
+      <div class="proof-showcase">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div>
+            <span class="mono-label">SECTION 03 · SUPPORTING PROOF</span>
+            <h3 style="font-family:var(--font-display);font-size:18px;color:var(--navy);">Uploaded Client Approval Screenshot (WhatsApp / Email)</h3>
+          </div>
+          <a href="#" id="singleDownloadProofBtn" class="btn btn--navy btn--sm no-print" download>Download Screenshot Proof</a>
+        </div>
+        <div id="singleProofBody" class="proof-showcase__img-wrap"></div>
+      </div>
+    </div>
+
+    <!-- MULTI-RECORD / CATEGORY LEDGER VIEW (FOR BILLING RAISED / RECHARGE EYE BUTTON) -->
+    <div id="listEntryView" class="hidden">
+      <div class="details-hero">
+        <div>
+          <span class="mono-badge" id="listKicker">COMPLETE RECHARGE &amp; BILLING LEDGER</span>
+          <h1 class="details-hero__title" id="listTitle">All Recharge &amp; Billing Raised Details</h1>
+          <p class="details-hero__sub" id="listSubtitle">Filter by Today, Yesterday, or Calendar Date and click the Eye (👁) button on any row to view its individual sheet.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" class="no-print">
+          <a href="/api/export/csv" class="btn btn--navy btn--sm" download>Download Excel (CSV)</a>
+        </div>
+      </div>
+
+      <!-- Global Date Filter Bar inside New Tab -->
+      <div class="date-filter-bar no-print" style="margin-bottom:18px;">
+        <div class="date-filter-bar__left">
+          <span class="date-filter-bar__label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>DATE FILTER:</span>
+          </span>
+          <div class="date-quick-pills" id="tabDateQuickPills">
+            <button type="button" class="date-pill active" data-dmode="all">All Dates</button>
+            <button type="button" class="date-pill" data-dmode="today">Today</button>
+            <button type="button" class="date-pill" data-dmode="yesterday">Yesterday</button>
+            <button type="button" class="date-pill" data-dmode="custom">Calendar Select</button>
+          </div>
+          <div class="date-calendar-inputs hidden" id="tabDateCalendarInputs">
+            <input type="date" id="tabDateFrom" class="form-input form-input--sm date-input" title="From Date" />
+            <span class="date-sep">to</span>
+            <input type="date" id="tabDateTo" class="form-input form-input--sm date-input" title="To Date" />
+          </div>
+        </div>
+        <div class="date-filter-bar__right" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <select id="tabAmFilter" class="form-select form-select--sm" style="width:auto;">
+            <option value="ALL">All Account Managers</option>
+          </select>
+          <select id="tabStatusFilter" class="form-select form-select--sm" style="width:auto;">
+            <option value="ALL">All Status (Recharge + Billing)</option>
+            <option value="Billing Raised">Billing Raised Only</option>
+            <option value="Pending">Unbilled / Pending Recharge</option>
+            <option value="On Hold">On Hold / Query</option>
+          </select>
+          <input type="search" id="tabSearchInput" class="form-input form-input--sm" placeholder="Search user, company, invoice..." style="width:210px;" />
+        </div>
+      </div>
+
+      <!-- Summary KPI Strip -->
+      <div class="ledger-strip" style="margin-bottom:18px;">
+        <div class="ledger-cell ledger-cell--total">
+          <div class="ledger-cell__top"><span class="mono-label">TOTAL RECHARGES</span></div>
+          <div class="ledger-cell__val tnum" id="tabStatTotalCount">0</div>
+          <div class="ledger-cell__meta tnum" id="tabStatTotalAmt">Total Value: ₹0</div>
+        </div>
+        <div class="ledger-cell ledger-cell--raised">
+          <div class="ledger-cell__top"><span class="mono-label">BILLING RAISED</span></div>
+          <div class="ledger-cell__val tnum" id="tabStatRaisedCount">0</div>
+          <div class="ledger-cell__meta tnum" id="tabStatRaisedAmt">₹0 invoiced</div>
+        </div>
+        <div class="ledger-cell ledger-cell--pending">
+          <div class="ledger-cell__top"><span class="mono-label">UNBILLED OUTSTANDING</span></div>
+          <div class="ledger-cell__val tnum" id="tabStatPendingCount">0</div>
+          <div class="ledger-cell__meta tnum" id="tabStatPendingAmt">₹0 pending</div>
+        </div>
+        <div class="ledger-cell ledger-cell--hold">
+          <div class="ledger-cell__top"><span class="mono-label">ON HOLD / QUERY</span></div>
+          <div class="ledger-cell__val tnum" id="tabStatHoldCount">0</div>
+          <div class="ledger-cell__meta tnum" id="tabStatHoldAmt">₹0 on hold</div>
+        </div>
+      </div>
+
+      <!-- Combined Recharge Details & Billing Details Table -->
+      <div class="panel">
+        <div class="table-responsive">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>ID &amp; Recharge Date</th>
+                <th>Username &amp; Company</th>
+                <th>Recharge Details (Service &amp; Units)</th>
+                <th>Rate &amp; Total Amount</th>
+                <th>Account Manager &amp; Source</th>
+                <th>Billing Status</th>
+                <th>Billing Entity &amp; Type</th>
+                <th>Billing Details (Invoice &amp; Billed Date)</th>
+                <th>Remarks (Support &amp; Billing)</th>
+                <th>Proof</th>
+                <th>Full Sheet</th>
+              </tr>
+            </thead>
+            <tbody id="tabLedgerTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script>
+    const currentUser = JSON.parse(sessionStorage.getItem('immense_auth_user') || 'null');
+    const isAdmin = Boolean(currentUser && currentUser.role === 'admin');
+    const isAccounts = Boolean(currentUser && currentUser.role === 'accounts');
+    const isSupport = Boolean(currentUser && currentUser.role === 'support');
+
+    const params = new URLSearchParams(window.location.search);
+    const entryId = params.get('id');
+    const viewType = params.get('type') || 'all'; // 'all' | 'raised' | 'pending' | 'hold'
+    const filterUser = params.get('username') || '';
+    const filterAm = params.get('am') || '';
+    const initialDateMode = params.get('dmode') || 'all';
+    const initialFrom = params.get('from') || '';
+    const initialTo = params.get('to') || '';
+
+    let allRecharges = [];
+    let dateState = {
+      mode: initialDateMode,
+      from: initialFrom,
+      to: initialTo,
+      status: viewType === 'raised' ? 'Billing Raised' : viewType === 'pending' ? 'Pending' : viewType === 'hold' ? 'On Hold' : 'ALL',
+      am: filterAm || 'ALL',
+      q: filterUser || ''
+    };
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('hidden');
+      setTimeout(() => t.classList.add('hidden'), 3000);
+    }
+
+    function formatNumberIN(num) {
+      return (Number(num) || 0).toLocaleString('en-IN');
+    }
+
+    function formatCurrencyIN(num) {
+      return '₹' + (Number(num) || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    }
+
+    function formatDateTime(iso) {
+      if (!iso) return '—';
+      return new Date(iso).toLocaleString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    function getLocalDateYYYYMMDD(d) {
+      const yr = d.getFullYear();
+      const mo = String(d.getMonth() + 1).padStart(2, '0');
+      const da = String(d.getDate()).padStart(2, '0');
+      return `${yr}-${mo}-${da}`;
+    }
+
+    function matchesDateFilter(isoStr, mode, fromStr, toStr) {
+      if (!mode || mode === 'all') return true;
+      if (!isoStr) return false;
+      const itemDateStr = getLocalDateYYYYMMDD(new Date(isoStr));
+      const now = new Date();
+      const todayStr = getLocalDateYYYYMMDD(now);
+      const yest = new Date(now);
+      yest.setDate(now.getDate() - 1);
+      const yesterdayStr = getLocalDateYYYYMMDD(yest);
+
+      if (mode === 'today') return itemDateStr === todayStr;
+      if (mode === 'yesterday') return itemDateStr === yesterdayStr;
+      if (mode === 'custom') {
+        if (fromStr && toStr) return itemDateStr >= fromStr && itemDateStr <= toStr;
+        if (fromStr) return itemDateStr === fromStr;
+        if (toStr) return itemDateStr === toStr;
+      }
+      return true;
+    }
+
+    async function loadDetailsPage() {
+      const res = await fetch('/api/recharges');
+      const data = await res.json();
+      allRecharges = data.recharges || [];
+
+      // Populate Account Manager filter dropdown
+      const amSelect = document.getElementById('tabAmFilter');
+      if (amSelect) {
+        const amSet = new Set();
+        allRecharges.forEach((r) => {
+          if (r.accountManager) amSet.add(r.accountManager);
+        });
+        const list = Array.from(amSet).sort();
+        amSelect.innerHTML =
+          `<option value="ALL">All Account Managers</option>` +
+          list.map((m) => `<option value="${m}">${m}</option>`).join('');
+        amSelect.value = dateState.am;
+      }
+
+      if (entryId) {
+        renderSingleEntry(entryId);
+      } else {
+        renderListView();
+      }
+    }
+
+    function renderSingleEntry(id) {
+      const item = allRecharges.find((r) => r.id === id);
+      if (!item) {
+        document.getElementById('singleEntryView').classList.remove('hidden');
+        document.getElementById('singleTitle').textContent = `Record ${id} Not Found`;
+        return;
+      }
+
+      document.getElementById('singleEntryView').classList.remove('hidden');
+      document.getElementById('listEntryView').classList.add('hidden');
+
+      document.title = `${item.id} · ${item.username} — Recharge & Billing Details`;
+      document.getElementById('singleBadgeId').textContent = item.id;
+      document.getElementById('singleTitle').textContent = isSupport ? item.username : `${item.clientName || item.username} (${item.username})`;
+      document.getElementById('singleSubtitle').textContent = `Logged on ${formatDateTime(item.createdAt)} · Account Manager: ${item.accountManager}`;
+
+      const isRaised = item.billingStatus === 'Billing Raised';
+      const stBadge = document.getElementById('singleStatusBadge');
+      const isCancelled = item.billingStatus === 'Cancelled';
+      if (isSupport) {
+        stBadge.textContent = isRaised ? 'Bill Raised' : isCancelled ? 'Cancelled' : 'Bill Not Raised';
+        stBadge.className = 'status-badge ' + (isRaised ? 'status-badge--raised' : isCancelled ? 'status-badge--cancelled' : 'status-badge--pending');
+      } else {
+        stBadge.textContent = item.billingStatus === 'Pending' ? 'Pending Billing' : item.billingStatus;
+        stBadge.className = 'status-badge ' + (
+          item.billingStatus === 'Pending'
+            ? 'status-badge--pending'
+            : isRaised
+            ? 'status-badge--raised'
+            : isCancelled
+            ? 'status-badge--cancelled'
+            : 'status-badge--hold'
+        );
+      }
+
+      const svcTag = document.getElementById('singleServiceTag');
+      svcTag.textContent = item.service;
+      svcTag.setAttribute('data-svc', item.service);
+
+      document.getElementById('rechargeDetailsRows').innerHTML = `
+        <div class="detail-row"><span class="detail-row__label">Recharge ID</span><span class="detail-row__val tnum">${item.id}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Recharge Logged Date</span><span class="detail-row__val tnum">${formatDateTime(item.createdAt)}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Panel Username</span><span class="detail-row__val">${item.username}</span></div>
+        ${!isSupport && item.clientName ? `<div class="detail-row"><span class="detail-row__label">Company / Client Name</span><span class="detail-row__val">${item.clientName}</span></div>` : ''}
+        <div class="detail-row"><span class="detail-row__label">CPaaS Service Channel</span><span class="detail-row__val"><span class="service-tag" data-svc="${item.service}">${item.service}</span></span></div>
+        <div class="detail-row"><span class="detail-row__label">Recharge Credits / Count</span><span class="detail-row__val tnum" style="font-size:16px;">${formatNumberIN(item.rechargeCount)} Units</span></div>
+        <div class="detail-row"><span class="detail-row__label">Rate Per Unit</span><span class="detail-row__val tnum">${item.ratePerUnit ? '₹' + item.ratePerUnit : '—'}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Total Recharge Amount</span><span class="detail-row__val tnum" style="font-size:17px;color:var(--navy);">${formatCurrencyIN(item.totalAmount)} ${item.gstEnabled && item.gstAmount > 0 ? `<span style="font-size:12px;color:var(--accent);font-weight:600;margin-left:6px;">(Base ₹${formatNumberIN(item.baseAmount || (item.totalAmount - item.gstAmount))} + 18% GST ₹${formatNumberIN(item.gstAmount)})</span>` : ''}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Sales / Account Manager</span><span class="detail-row__val">${item.accountManager}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Client Approval Medium</span><span class="detail-row__val">${item.source || 'WhatsApp Message'}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Submitted By</span><span class="detail-row__val">${item.submittedBy || 'support'}</span></div>
+        <div class="detail-row"><span class="detail-row__label">Support Dispatch Note</span><span class="detail-row__val">${item.remarks || '—'}</span></div>
+      `;
+
+      if (isSupport) {
+        // SUPPORT ROLE: Confidential Billing details hidden — only show "Bill Raised" or "Bill Not Raised"
+        const statusLabel = isRaised ? 'Bill Raised' : 'Bill Not Raised';
+        const badgeColor = isRaised ? 'var(--green)' : 'var(--orange)';
+        document.getElementById('billingDetailsRows').innerHTML = `
+          <div class="detail-row">
+            <span class="detail-row__label">Billing Status</span>
+            <span class="detail-row__val" style="font-weight:700;color:${badgeColor};font-size:15.5px;">${statusLabel}</span>
+          </div>
+          <div style="margin-top:16px;padding:14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;font-size:12.5px;color:var(--ink-secondary);line-height:1.5;">
+            🔒 <strong>Billing Details Restricted</strong><br/>
+            Invoice numbers, billing entities, GST invoice types, and billing department remarks are strictly restricted to Billing / Accounts department.
+          </div>
+        `;
+      } else {
+        const outstandingVal = isRaised ? 0 : (Number(item.totalAmount) || 0);
+        const billedVal = isRaised ? (Number(item.totalAmount) || 0) : 0;
+
+        const bCompany = item.billingCompany || 'Immense Air';
+        const bType = item.invoiceType || 'Tax Invoice';
+        const companyClass = bCompany === 'Immense Air' ? 'company-pill--air' : bCompany === 'Immense Smart' ? 'company-pill--smart' : 'company-pill--zion';
+        const typeClass = bType === 'Tax Invoice' ? 'type-pill--tax' : bType === 'Proforma Invoice' ? 'type-pill--proforma' : 'type-pill--nongst';
+
+        document.getElementById('billingDetailsRows').innerHTML = `
+          <div class="detail-row"><span class="detail-row__label">Current Billing Status</span><span class="detail-row__val">${item.billingStatus}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Billed Through Company</span><span class="detail-row__val"><span class="company-pill ${companyClass}">🏢 ${bCompany}</span></span></div>
+          <div class="detail-row"><span class="detail-row__label">Invoice / Billing Type</span><span class="detail-row__val"><span class="type-pill ${typeClass}">${bType}</span></span></div>
+          <div class="detail-row"><span class="detail-row__label">GST (18%) Billing</span><span class="detail-row__val tnum">${item.gstEnabled ? `<span class="badge badge--accent">18% GST Applied (+₹${formatNumberIN(item.gstAmount || 0)})</span>` : `<span class="badge badge--navy">GST Disabled (Non-GST / Exempt)</span>`}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Invoice / Tally Bill No.</span><span class="detail-row__val tnum" style="color:var(--green);font-size:15px;">${item.invoiceNumber || 'Not Raised Yet'}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Billing Raised Date &amp; Time</span><span class="detail-row__val tnum">${item.billedAt ? formatDateTime(item.billedAt) : 'Pending'}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Last Updated At</span><span class="detail-row__val tnum">${formatDateTime(item.updatedAt)}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Unbilled Outstanding Value</span><span class="detail-row__val tnum" style="color:var(--orange);font-size:16px;">${formatCurrencyIN(outstandingVal)}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Invoiced / Billed Value</span><span class="detail-row__val tnum" style="color:var(--green);font-size:16px;">${formatCurrencyIN(billedVal)}</span></div>
+          <div class="detail-row"><span class="detail-row__label">Billing Dept Remarks</span><span class="detail-row__val">${item.billingRemarks || '—'}</span></div>
+          <div class="detail-row">
+            <span class="detail-row__label">Payment Collection</span>
+            <span class="detail-row__val">
+              <span class="payment-pill ${
+                (item.paymentStatus === 'Received' || item.paymentStatus === 'Payment Received') ? 'payment-pill--paid' :
+                (item.paymentStatus === 'Partial' || item.paymentStatus === 'Partial Payment') ? 'payment-pill--partial' : 'payment-pill--unpaid'
+              }">
+                ${
+                  (item.paymentStatus === 'Received' || item.paymentStatus === 'Payment Received') ? '✓ Payment Received (Full Paid)' :
+                  (item.paymentStatus === 'Partial' || item.paymentStatus === 'Partial Payment') ? `💰 Partial Payment (₹${formatCurrencyIN(item.paidAmount || 0)})` : '⏳ Payment Pending (Unpaid)'
+                }
+              </span>
+            </span>
+          </div>
+          ${(item.paymentStatus === 'Partial' || item.paymentStatus === 'Partial Payment') ? `
+            <div class="detail-row"><span class="detail-row__label">Amount Received / Bal</span><span class="detail-row__val tnum" style="color:#B45309;font-weight:700;">Received: ₹${formatCurrencyIN(item.paidAmount || 0)} · Pending Bal: ₹${formatCurrencyIN(Math.max(0, (item.totalAmount || 0) - (item.paidAmount || 0)))}</span></div>
+          ` : ''}
+          ${item.paymentMode ? `<div class="detail-row"><span class="detail-row__label">Payment Mode</span><span class="detail-row__val">${item.paymentMode}</span></div>` : ''}
+          ${item.paymentDate ? `<div class="detail-row"><span class="detail-row__label">Payment Date</span><span class="detail-row__val">${item.paymentDate}</span></div>` : ''}
+          ${item.followUpStatus === 'Requested' ? `
+            <div style="margin-top:12px;background:#fff7ed;border:1.5px solid #fed7aa;border-radius:6px;padding:10px 14px;">
+              <div style="font-weight:700;color:#c2410c;font-size:12px;">⚠️ ADMIN PAYMENT FOLLOW-UP REQUEST</div>
+              <div style="font-size:13px;color:#9a3412;margin-top:2px;font-weight:600;">"${item.followUpAdminRemark || 'Payment follow-up requested'}"</div>
+              <div style="font-size:11px;color:#b45309;margin-top:2px;">${item.followUpRequestedAt ? 'Requested on ' + new Date(item.followUpRequestedAt).toLocaleString('en-IN') : ''}</div>
+            </div>
+          ` : ''}
+          ${item.followUpStatus === 'Updated' ? `
+            <div style="margin-top:12px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:6px;padding:10px 14px;">
+              <div style="font-weight:700;color:#16a34a;font-size:12px;">🟢 BILLING FOLLOW-UP UPDATE</div>
+              <div style="font-size:13px;color:#1e293b;margin-top:2px;"><strong>Outcome:</strong> ${item.followUpBillingOutcome || 'Completed'}</div>
+              <div style="font-size:13px;color:#1e293b;margin-top:2px;"><strong>Remarks:</strong> "${item.followUpBillingRemark || ''}"</div>
+              ${item.followUpNextDate ? `<div style="font-size:12px;color:#0369a1;margin-top:2px;"><strong>Next Promised Date:</strong> ${item.followUpNextDate}</div>` : ''}
+              ${item.followUpProofUrl ? `
+                <div style="margin-top:8px;padding-top:6px;border-top:1px dashed #bbf7d0;">
+                  <a href="${item.followUpProofUrl}" target="_blank" class="btn btn--outline btn--sm" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">
+                    <span>👁️ View Supporting Proof Attached</span>
+                  </a>
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+        `;
+      }
+
+      // Role check: ONLY Accounts/Billing role can see and submit the billing update form!
+      const authUser = JSON.parse(sessionStorage.getItem('immense_auth_user') || 'null');
+      const isAccountsUser = authUser && authUser.role === 'accounts';
+      const isAdminUser = authUser && authUser.role === 'admin';
+
+      const updateForm = document.getElementById('singleQuickBillingForm');
+      const lockNotice = document.getElementById('billingLockedNotice');
+      if (isAccountsUser) {
+        updateForm.classList.remove('hidden');
+        if (lockNotice) lockNotice.classList.add('hidden');
+        document.getElementById('quickStatusSelect').value = item.billingStatus;
+        const qCompany = document.getElementById('quickBillingCompany');
+        if (qCompany) qCompany.value = item.billingCompany || 'Immense Air';
+        const qType = document.getElementById('quickInvoiceType');
+        if (qType) qType.value = item.invoiceType || 'Tax Invoice';
+        document.getElementById('quickInvoiceInput').value = item.invoiceNumber || '';
+        document.getElementById('quickBillingRemarksInput').value = item.billingRemarks || '';
+      } else {
+        updateForm.classList.add('hidden');
+        if (lockNotice) {
+          if (isSupport) {
+            lockNotice.classList.add('hidden');
+          } else {
+            lockNotice.classList.remove('hidden');
+          }
+        }
+      }
+
+      const singleDeleteBtn = document.getElementById('singleDeleteBtn');
+      if (singleDeleteBtn) {
+        singleDeleteBtn.classList.toggle('hidden', !isAdmin);
+      }
+
+      const proofBody = document.getElementById('singleProofBody');
+      const dlBtn = document.getElementById('singleDownloadProofBtn');
+      if (item.screenshotUrl) {
+        proofBody.innerHTML = `<img src="${item.screenshotUrl}" alt="Client Approval Screenshot" />`;
+        dlBtn.href = `${item.screenshotUrl}?download=1`;
+        dlBtn.classList.remove('hidden');
+      } else {
+        proofBody.innerHTML = `<div style="color:rgba(255,255,255,0.7);padding:30px;">No screenshot was attached to this entry.</div>`;
+        dlBtn.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('singleQuickBillingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!entryId) return;
+
+      const authUser = JSON.parse(sessionStorage.getItem('immense_auth_user') || 'null');
+      if (!authUser || authUser.role !== 'accounts') {
+        showToast('Permission Denied: Only Billing Department can update billing status.');
+        return;
+      }
+
+      const payload = {
+        userRole: authUser.role,
+        billingStatus: document.getElementById('quickStatusSelect').value,
+        billingCompany: document.getElementById('quickBillingCompany')?.value || 'Immense Air',
+        invoiceType: document.getElementById('quickInvoiceType')?.value || 'Tax Invoice',
+        invoiceNumber: document.getElementById('quickInvoiceInput').value.trim(),
+        billingRemarks: document.getElementById('quickBillingRemarksInput').value.trim()
+      };
+      const res = await fetch(`/api/recharges/${encodeURIComponent(entryId)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        showToast('Billing details updated successfully!');
+        loadDetailsPage();
+      } else {
+        showToast('Failed to update billing details.');
+      }
+    });
+
+    function renderListView() {
+      document.getElementById('singleEntryView').classList.add('hidden');
+      document.getElementById('listEntryView').classList.remove('hidden');
+
+      // Support Role: Hide CSV export button & adjust filter options
+      const csvBtn = document.querySelector('#listEntryView a[href="/api/export/csv"]');
+      if (csvBtn) {
+        csvBtn.classList.toggle('hidden', isSupport);
+      }
+
+      const searchInput = document.getElementById('tabSearchInput');
+      if (searchInput && isSupport) {
+        searchInput.placeholder = 'Search username, company, recharge ID...';
+      }
+
+      const statusFilter = document.getElementById('tabStatusFilter');
+      if (statusFilter && isSupport && !statusFilter.dataset.supportAdjusted) {
+        statusFilter.dataset.supportAdjusted = '1';
+        statusFilter.innerHTML = `
+          <option value="ALL">All Recharges</option>
+          <option value="Billing Raised">Bill Raised</option>
+          <option value="Pending">Bill Not Raised</option>
+          <option value="On Hold">On Hold</option>
+        `;
+      }
+
+      document.getElementById('tabStatusFilter').value = dateState.status;
+      document.getElementById('tabSearchInput').value = dateState.q;
+      document.getElementById('tabDateFrom').value = dateState.from;
+      document.getElementById('tabDateTo').value = dateState.to;
+
+      document.querySelectorAll('#tabDateQuickPills .date-pill').forEach((b) => {
+        b.classList.toggle('active', b.dataset.dmode === dateState.mode);
+      });
+      document.getElementById('tabDateCalendarInputs')?.classList.toggle('hidden', dateState.mode !== 'custom');
+
+      if (dateState.am && dateState.am !== 'ALL') {
+        document.getElementById('listKicker').textContent = `ACCOUNT MANAGER · ${dateState.am.toUpperCase()}`;
+        document.getElementById('listTitle').textContent = `${dateState.am} — All Recharges & Billing Details`;
+        document.getElementById('listSubtitle').textContent = `Showing all recharge entries and billing verification status for Account Manager ${dateState.am}.`;
+        document.title = `${dateState.am} · Recharges & Billing Details`;
+      } else if (dateState.status === 'Billing Raised') {
+        document.getElementById('listKicker').textContent = isSupport ? 'BILL RAISED RECHARGES' : 'BILLING INVOICED HISTORY';
+        document.getElementById('listTitle').textContent = isSupport ? 'Bill Raised — Recharge Entries' : 'Billing Raised — Complete Billing & Recharge Details';
+        document.getElementById('listSubtitle').textContent = 'Filter by Today, Yesterday, or Calendar Date and click the Eye (👁) button on any row to view its individual sheet.';
+      } else if (dateState.status === 'Pending') {
+        document.getElementById('listKicker').textContent = isSupport ? 'BILL NOT RAISED RECHARGES' : 'PENDING BILLING QUEUE';
+        document.getElementById('listTitle').textContent = isSupport ? 'Bill Not Raised — Submitted Recharges' : 'Unbilled / Pending Recharges — Complete Details';
+        document.getElementById('listSubtitle').textContent = 'Filter by Today, Yesterday, or Calendar Date and click the Eye (👁) button on any row to view its individual sheet.';
+      } else {
+        document.getElementById('listKicker').textContent = isSupport ? 'SUPPORT RECHARGE TRACKER' : 'COMPLETE RECHARGE & BILLING LEDGER';
+        document.getElementById('listTitle').textContent = isSupport ? 'All Submitted Recharges & Status' : 'All Recharges & Billing Details Ledger';
+        document.getElementById('listSubtitle').textContent = 'Filter by Today, Yesterday, or Calendar Date and click the Eye (👁) button on any row to view its individual sheet.';
+      }
+
+      const filtered = allRecharges.filter((item) => {
+        if (!matchesDateFilter(item.createdAt, dateState.mode, dateState.from, dateState.to)) return false;
+        if (dateState.status !== 'ALL' && item.billingStatus !== dateState.status) return false;
+        if (dateState.am && dateState.am !== 'ALL' && (item.accountManager || '').toLowerCase() !== dateState.am.toLowerCase()) return false;
+        if (dateState.q) {
+          const hay = `${item.id} ${item.username} ${item.clientName || ''} ${item.accountManager || ''} ${item.invoiceNumber || ''} ${item.service || ''}`.toLowerCase();
+          if (!hay.includes(dateState.q.toLowerCase().trim())) return false;
+        }
+        return true;
+      });
+
+      const pending = filtered.filter((r) => r.billingStatus === 'Pending');
+      const raised = filtered.filter((r) => r.billingStatus === 'Billing Raised');
+      const hold = filtered.filter((r) => r.billingStatus === 'On Hold');
+
+      const totalAmt = filtered.reduce((s, r) => s + (Number(r.totalAmount) || 0), 0);
+      const raisedAmt = raised.reduce((s, r) => s + (Number(r.totalAmount) || 0), 0);
+      const pendingAmt = pending.reduce((s, r) => s + (Number(r.totalAmount) || 0), 0);
+      const holdAmt = hold.reduce((s, r) => s + (Number(r.totalAmount) || 0), 0);
+
+      document.getElementById('tabStatTotalCount').textContent = filtered.length;
+      document.getElementById('tabStatTotalAmt').textContent = `Total Value: ${formatCurrencyIN(totalAmt)}`;
+      document.getElementById('tabStatRaisedCount').textContent = raised.length;
+      document.getElementById('tabStatRaisedAmt').textContent = isSupport ? 'Bill Raised' : `${formatCurrencyIN(raisedAmt)} invoiced`;
+      document.getElementById('tabStatPendingCount').textContent = pending.length;
+      document.getElementById('tabStatPendingAmt').textContent = isSupport ? 'Bill Not Raised' : `${formatCurrencyIN(pendingAmt)} pending`;
+      document.getElementById('tabStatHoldCount').textContent = hold.length;
+      document.getElementById('tabStatHoldAmt').textContent = isSupport ? 'On Hold' : `${formatCurrencyIN(holdAmt)} on hold`;
+
+      if (isSupport) {
+        const cRaised = document.querySelector('.ledger-cell--raised .mono-label');
+        if (cRaised) cRaised.textContent = 'BILL RAISED';
+        const cPending = document.querySelector('.ledger-cell--pending .mono-label');
+        if (cPending) cPending.textContent = 'BILL NOT RAISED';
+      }
+
+      // Dynamic Table Header: hide billing entity & invoice columns for support
+      const theadEl = document.querySelector('#listEntryView thead');
+      if (theadEl) {
+        if (isSupport) {
+          theadEl.innerHTML = `
+            <tr>
+              <th>ID &amp; Recharge Date</th>
+              <th>Username &amp; Company</th>
+              <th>Recharge Details (Service &amp; Units)</th>
+              <th>Rate &amp; Total Amount</th>
+              <th>Account Manager &amp; Source</th>
+              <th>Billing Status</th>
+              <th>Support Note</th>
+              <th>Proof</th>
+              <th>Full Sheet</th>
+            </tr>
+          `;
+        } else {
+          theadEl.innerHTML = `
+            <tr>
+              <th>ID &amp; Recharge Date</th>
+              <th>Username &amp; Company</th>
+              <th>Recharge Details (Service &amp; Units)</th>
+              <th>Rate &amp; Total Amount</th>
+              <th>Account Manager &amp; Source</th>
+              <th>Billing Status</th>
+              <th>Billing Entity &amp; Type</th>
+              <th>Billing Details (Invoice &amp; Billed Date)</th>
+              <th>Remarks (Support &amp; Billing)</th>
+              <th>Proof</th>
+              <th>Full Sheet</th>
+            </tr>
+          `;
+        }
+      }
+
+      const tbody = document.getElementById('tabLedgerTableBody');
+      const colCount = isSupport ? 9 : 11;
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${colCount}" style="text-align:center;padding:32px;color:var(--ink-muted);">No matching records for the selected date/filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered
+        .map((item) => {
+          const isRaised = item.billingStatus === 'Billing Raised';
+          const badgeClass = isSupport
+            ? (isRaised ? 'status-badge--raised' : 'status-badge--pending')
+            : (item.billingStatus === 'Pending'
+              ? 'status-badge--pending'
+              : isRaised
+              ? 'status-badge--raised'
+              : 'status-badge--hold');
+
+          const statusText = isSupport
+            ? (isRaised ? 'Bill Raised' : 'Bill Not Raised')
+            : item.billingStatus;
+
+          const proofHtml = item.screenshotUrl
+            ? `<a href="${item.screenshotUrl}" target="_blank" class="btn btn--sm btn--ghost">Proof ↗</a>`
+            : `<span style="color:var(--ink-muted);font-size:11px;">None</span>`;
+
+          const bCompany = item.billingCompany || 'Immense Air';
+          const bType = item.invoiceType || 'Tax Invoice';
+          const companyClass = bCompany === 'Immense Air' ? 'company-pill--air' : bCompany === 'Immense Smart' ? 'company-pill--smart' : 'company-pill--zion';
+          const typeClass = bType === 'Tax Invoice' ? 'type-pill--tax' : bType === 'Proforma Invoice' ? 'type-pill--proforma' : 'type-pill--nongst';
+
+          return `
+            <tr>
+              <td>
+                <div style="font-family:var(--font-mono);font-weight:700;">${item.id}</div>
+                <div class="tnum" style="font-size:11px;color:var(--ink-muted);">${formatDateTime(item.createdAt)}</div>
+              </td>
+              <td>
+                <strong>${item.username}</strong>
+                ${!isSupport && item.clientName ? `<div style="font-size:12px;color:var(--ink-secondary);">${item.clientName}</div>` : ''}
+              </td>
+              <td class="tnum">
+                <span class="service-tag" data-svc="${item.service}">${item.service}</span>
+                <div style="font-weight:700;margin-top:3px;">${formatNumberIN(item.rechargeCount)} Units</div>
+              </td>
+              <td class="tnum">
+                <div style="font-weight:800;color:var(--navy);">${formatCurrencyIN(item.totalAmount)}</div>
+                <div style="font-size:11px;color:var(--ink-muted);">${item.ratePerUnit ? `@ ₹${item.ratePerUnit}/unit` : ''}</div>
+              </td>
+              <td>
+                <strong>${item.accountManager}</strong>
+                <div style="font-size:11px;color:var(--ink-muted);">${item.source || 'WhatsApp'}</div>
+              </td>
+              <td>
+                <span class="status-badge ${badgeClass}">${statusText}</span>
+                ${!isSupport && isRaised ? `
+                  <div style="margin-top:4px;">
+                    <span class="payment-pill ${
+                      (item.paymentStatus === 'Received' || item.paymentStatus === 'Payment Received') ? 'payment-pill--paid' :
+                      (item.paymentStatus === 'Partial' || item.paymentStatus === 'Partial Payment') ? 'payment-pill--partial' : 'payment-pill--unpaid'
+                    }">
+                      ${
+                        (item.paymentStatus === 'Received' || item.paymentStatus === 'Payment Received') ? '✓ Paid' :
+                        (item.paymentStatus === 'Partial' || item.paymentStatus === 'Partial Payment') ? `💰 Partial (₹${formatNumberIN(item.paidAmount || 0)})` : '⏳ Unpaid'
+                      }
+                    </span>
+                  </div>
+                ` : ''}
+              </td>
+              ${!isSupport ? `
+                <td>
+                  <div><span class="company-pill ${companyClass}">🏢 ${bCompany}</span></div>
+                  <div style="margin-top:4px;"><span class="type-pill ${typeClass}">${bType}</span></div>
+                </td>
+                <td class="tnum">
+                  <div style="font-weight:700;color:var(--green);">${item.invoiceNumber || 'Not Raised'}</div>
+                  <div style="font-size:11px;color:var(--ink-muted);">${item.billedAt ? formatDateTime(item.billedAt) : 'Pending Billing'}</div>
+                </td>
+                <td style="max-width:200px;font-size:12px;">
+                  ${item.remarks ? `<div><strong>Support:</strong> ${item.remarks}</div>` : ''}
+                  ${item.billingRemarks ? `<div><strong>Billing:</strong> ${item.billingRemarks}</div>` : ''}
+                  ${!item.remarks && !item.billingRemarks ? '—' : ''}
+                </td>
+              ` : `
+                <td style="max-width:200px;font-size:12px;">
+                  ${item.remarks ? `<div><strong>Support Note:</strong> ${item.remarks}</div>` : '—'}
+                </td>
+              `}
+              <td>${proofHtml}</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                  <a href="details.html?id=${encodeURIComponent(item.id)}" class="eye-action-btn" title="Open Full Recharge & Billing Sheet">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span>Details</span>
+                  </a>
+                  ${isAdmin ? `
+                    <button type="button" class="btn-delete-row" onclick="deleteListRow('${item.id}', '${item.username}')" title="Delete">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                  ` : ''}
+                </div>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    window.deleteSingleSheetRecord = async function() {
+      if (!entryId) return;
+      if (currentUser?.role !== 'admin') {
+        showToast('Permission Denied: Only Super Admin can delete records.');
+        return;
+      }
+      if (!confirm(`Permanently delete recharge record ${entryId}?\nThis action cannot be undone.`)) return;
+      try {
+        const res = await fetch(`/api/recharges/${encodeURIComponent(entryId)}?userRole=${encodeURIComponent(currentUser?.role || '')}`, { method: 'DELETE' });
+        if (res.ok) {
+          alert(`Record ${entryId} permanently deleted.`);
+          window.location.href = 'index.html';
+        } else {
+          showToast('Failed to delete entry');
+        }
+      } catch (e) {
+        showToast('Error deleting entry');
+      }
+    };
+
+    window.deleteListRow = async function(id, username) {
+      if (currentUser?.role !== 'admin') {
+        showToast('Permission Denied: Only Super Admin can delete records.');
+        return;
+      }
+      if (!confirm(`Permanently delete recharge record ${id} (${username || ''})?\nThis action cannot be undone.`)) return;
+      try {
+        const res = await fetch(`/api/recharges/${encodeURIComponent(id)}?userRole=${encodeURIComponent(currentUser?.role || '')}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast(`Deleted ${id} successfully`);
+          await loadDetailsPage();
+        } else {
+          showToast('Failed to delete entry');
+        }
+      } catch (e) {
+        showToast('Error deleting entry');
+      }
+    };
+
+    document.getElementById('tabDateQuickPills')?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.date-pill');
+      if (!btn) return;
+      dateState.mode = btn.dataset.dmode;
+      if (dateState.mode !== 'custom') {
+        dateState.from = '';
+        dateState.to = '';
+      }
+      renderListView();
+    });
+
+    document.getElementById('tabDateFrom')?.addEventListener('change', (e) => {
+      dateState.from = e.target.value;
+      dateState.mode = 'custom';
+      renderListView();
+    });
+
+    document.getElementById('tabDateTo')?.addEventListener('change', (e) => {
+      dateState.to = e.target.value;
+      dateState.mode = 'custom';
+      renderListView();
+    });
+
+    document.getElementById('tabAmFilter')?.addEventListener('change', (e) => {
+      dateState.am = e.target.value;
+      renderListView();
+    });
+
+    document.getElementById('tabStatusFilter')?.addEventListener('change', (e) => {
+      dateState.status = e.target.value;
+      renderListView();
+    });
+
+    document.getElementById('tabSearchInput')?.addEventListener('input', (e) => {
+      dateState.q = e.target.value;
+      renderListView();
+    });
+
+    loadDetailsPage();
+  </script>
+</body>
+</html>
